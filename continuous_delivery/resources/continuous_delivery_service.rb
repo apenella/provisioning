@@ -24,6 +24,7 @@ action :deploy do
 		docker_image new_resource.image['name'] do
 			if new_resource.image.has_key?('repo')	then repo	new_resource.image['repo']	end
 			if new_resource.image.has_key?('tag')	then tag	new_resource.image['tag']	end
+			if new_resource.image.has_key?('source')	then source	new_resource.image['source']	end							
 			if new_resource.image.has_key?('action')	then action	new_resource.image['action']	end
 		end
 	end
