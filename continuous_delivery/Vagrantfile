@@ -46,19 +46,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 					}
 				},
 				:registry => {
+					:deploy => {
+						:clear => true
+					},
 					:config => {
 						:host => "#{$SERVER_IP}",
-						:port => "5000",
+						:port => '5000'
 					}
 				},
 				:registry_ui => {
 					:deploy => {
-						:clear => true
+						:clear => false
 					}
 				},
 				:portainer => {
 					:deploy => {
-						:clear => true
+						:clear => false
 					},
 					:config => {
 						:port => '9000'
