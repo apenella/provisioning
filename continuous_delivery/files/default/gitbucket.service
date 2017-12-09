@@ -1,0 +1,17 @@
+[Unit]
+Description=OSO GitBucket Service
+Requires=docker.service
+After=consul.service
+After=docker.service
+
+[Service]
+TimeoutStartSec=0
+#User=udocker
+#Group=gcmdb
+ExecStartPre=-/usr/bin/docker kill gitbucket
+ExecStart=/usr/bin/docker start -a gitbucket
+ExecStop=/usr/bin/docker stop -t 2 gitbucket
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

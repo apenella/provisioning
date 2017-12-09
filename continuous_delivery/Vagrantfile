@@ -1,0 +1,62 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+	config.berkshelf.enabled = true	
+	#config.omnibus.chef_version = '12.20.3'
+
+	$SERVER_IP = "10.0.0.5"	
+
+	config.vm.define 'cd' do |env|
+    		env.vm.hostname = 'cd'
+    		#env.vm.box = 'ubuntu/trusty64'
+    		env.vm.box = 'ubuntu/xenial64'
+    		env.vm.network 'private_network', ip: "#{$SERVER_IP}"
+
+    		env.vm.provider 'virtualbox' do |vb|
+      			vb.name = 'continuousdelivery'
+      			vb.memory = 4096
+      			vb.cpus = 2
+    		end
+
+		env.vm.provision "chef_solo" do |chef|
+			#chef.log_level = :debug
+    			chef.add_recipe "continuous_delivery"
+
+			chef.json = {
+				:continuous_delivery => {
+					:service => {
+						:portainer => true,
+						:registry_ui => false
+					}
+				},
+				:portainer => {
+					:clear => true
+				},
+				:jenkins => {
+					:clear => {
+						:files => { 'do': false },
+						:images => { 'do': false },
+						:containers => { 'do': false }
+					}
+				},
+				:gitlab => {
+					:config => {
+						:external_url => "http://#{$SERVER_IP}"	
+					}
+				},
+				:registry => {
+					:config => {
+						:host => "#{$SERVER_IP}",
+						:port => "5000",
+					}
+				}
+			}
+  		end
+
+  	end
+	
+end
