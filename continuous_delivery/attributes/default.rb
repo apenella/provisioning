@@ -10,7 +10,7 @@
 # enable utilities deployment
 #
 
-# portainer: control docker engine
+# portainer: manages docker engine
 default['continuous_delivery']['service']['portainer'] = false
 # registry-ui: web console for registry
 default['continuous_delivery']['service']['registry_ui'] = false

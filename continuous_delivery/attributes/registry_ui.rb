@@ -5,10 +5,25 @@
 # 2017 Aleix Penella
 #
 
-# service name
+#
+# attributes for deployment node
+default['registry_ui']['deploy']['clear'] = false
+
+#
+# systemd service definition
 default['registry_ui']['service'] = 'registry-ui'
+default['registry_ui']['systemd'] = {
+	'name': node['registry_ui']['service'],
+	'description': 'Registry UI service gives to user a way to manage its private docker registry',
+	'requires': node['registry']['service'],
+	'after': node['registry']['service']
+}
+
+#
+# service configuration
 default['registry_ui']['config']['registry'] = '0.0.0.0:5000'
 
+#
 # docker image
 default['registry_ui']['docker']['image'] = {
 	'name': 'parabuzzle/docker-registry-ui',
@@ -16,6 +31,7 @@ default['registry_ui']['docker']['image'] = {
 	'action': 'pull_if_missing'
 }
 
+#
 # docker containers
 default['registry_ui']['docker']['container'] = {
 	'name': 'registry-ui',

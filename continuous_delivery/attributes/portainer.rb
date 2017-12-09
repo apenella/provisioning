@@ -6,21 +6,21 @@
 #
 
 #
-# environment
-default['portainer']['clear'] = true
+# attributes for deployment node
+default['portainer']['deploy']['clear'] = false
 
 #
 # systemd service definition
 default['portainer']['service'] = 'portainer'
 default['portainer']['systemd'] = {
 	'name': node['portainer']['service'],
-	'description': 'Portainer service manages',
+	'description': 'Portainer service manages docker host or swarm cluster',
 	'requires': node['docker']['service'],
 	'after': node['docker']['service']
 }
 
 #
-# config
+# service configuration
 default['portainer']['config']['port'] = 9000
 
 #

@@ -17,10 +17,10 @@ if node['continuous_delivery']['service']['portainer'] then
 	include_recipe 'continuous_delivery::portainer' 
 end
 
-# # include registry-ui service
-# if node['continuous_delivery']['service']['registry_ui'] then 
-# 	include_recipe 'continuous_delivery::registry_ui' 
-# end
+# include registry-ui service
+if node['continuous_delivery']['service']['registry_ui'] then 
+	include_recipe 'continuous_delivery::registry_ui' 
+end
 
 # # include ELK service
 # if node['continuous_delivery']['service']['elk'] then 

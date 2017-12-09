@@ -29,12 +29,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 			chef.json = {
 				:continuous_delivery => {
 					:service => {
-						:portainer => true,
-						:registry_ui => false
+						:portainer => false,
+						:registry_ui => true
 					}
-				},
-				:portainer => {
-					:clear => true
 				},
 				:jenkins => {
 					:clear => {
@@ -52,6 +49,24 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 					:config => {
 						:host => "#{$SERVER_IP}",
 						:port => "5000",
+					}
+				},
+				:registry_ui => {
+					:deploy => {
+						:clear => true
+					}
+				},
+				:portainer => {
+					:deploy => {
+						:clear => true
+					},
+					:config => {
+						:port => '9000'
+					}
+				},
+				:elk => {
+					:deploy => {
+						:clear => true
 					}
 				}
 			}
