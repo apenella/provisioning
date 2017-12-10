@@ -9,6 +9,7 @@ resource_name :continuous_delivery_service
 
 property :name, String, name_property: true
 property :image, Hash, default: {}
+property :files, Array, default: []
 property :container, Hash, default: {}
 property :systemd_service, Hash, default: {}
 
@@ -70,6 +71,17 @@ action :remove do
 end
 
 action :clear do
+
+	#
+	# clear files
+	if !new_resource.files.empty? then
+		new_resource.files.each do |f|
+			file f do
+				action :delete
+			end
+		end
+	end
+
 	#
 	# clear systemd service
 	if !new_resource.systemd_service.empty? then
