@@ -11,20 +11,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	$SERVER_IP = "10.0.0.5"	
 
 	config.vm.define 'cd' do |env|
-    		env.vm.hostname = 'cd'
-    		#env.vm.box = 'ubuntu/trusty64'
-    		env.vm.box = 'ubuntu/xenial64'
-    		env.vm.network 'private_network', ip: "#{$SERVER_IP}"
+		env.vm.hostname = 'cd'
+		env.vm.box = 'ubuntu/xenial64'
+		env.vm.network 'private_network', ip: "#{$SERVER_IP}"
 
-    		env.vm.provider 'virtualbox' do |vb|
-      			vb.name = 'continuousdelivery'
-      			vb.memory = 4096
-      			vb.cpus = 2
-    		end
+		env.vm.provider 'virtualbox' do |vb|
+			vb.name = 'continuousdelivery'
+			vb.memory = 4096
+			vb.cpus = 2
+		end
 
 		env.vm.provision "chef_solo" do |chef|
 			#chef.log_level = :debug
-    			chef.add_recipe "continuous_delivery"
+			chef.add_recipe "continuous_delivery"
 
 			chef.json = {
 				:continuous_delivery => {
@@ -34,6 +33,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 					}
 				},
 				:jenkins => {
+					:deploy => {
+						'jenkins-data' => { 'clear': true },
+						'jenkins-master' => { 'clear': false }
+					},
 					:clear => {
 						:files => { 'do': false },
 						:images => { 'do': false },
@@ -47,7 +50,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 				},
 				:registry => {
 					:deploy => {
-						:clear => true
+						:clear => false
 					},
 					:config => {
 						:host => "#{$SERVER_IP}",

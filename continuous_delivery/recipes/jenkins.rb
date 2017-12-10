@@ -5,44 +5,8 @@
 # 2017 Aleix Penella
 #
 
-
 #
-# CLEAR
-#===============================
-if node['jenkins']['clear']['files'].do then
-	# delete each file
-	node['jenkins']['clear']['files'].list.each do |f|
-		file f do
-			action :delete
-		end
-	end
-end
-
-if node['jenkins']['clear']['images'].do then
-	#TODO	
-end
-
-if node['jenkins']['clear']['containers'].do then
-	# stop container
-	service "jenkins:clear:containers stopping service #{node['jenkins']['service']}" do
-		service_name "#{node['jenkins']['service']}"
-		action :stop
-	end
-
-	# delete containers
-	node['jenkins']['clear']['containers'].list.each do |c|
-		docker_container "jenkins:clear:containers delete container #{c}" do
-			container_name c
-			remove_volumes true
-			action :delete
-		end
-	end	
-end
-
-
-#
-# SYSTEM CONFIGURATION
-#===============================
+# System configuration
 
 #
 # create directories 
@@ -53,29 +17,33 @@ node['jenkins']['directory'].each do |d, info|
 	end
 end
 
-#
-# JENKINS DATA
-#===============================
 
 #
-# import dockerfiles for jenkins data
+# Jenkins data
+
+#
+# clear service
+if node['jenkins']['deploy']['jenkins-data']['clear'] then
+	continuous_delivery_service "Clear jenkins-data" do
+		files node['jenkins']['clear']['jenkins-data'].files
+		image node['jenkins']['docker']['image']['jenkins-data']
+		container node['jenkins']['docker']['container']['jenkins-data']
+		action :clear
+	end
+end
+
+#
+# import dockerfiles for jenkins data building
 cookbook_file node['jenkins']['docker']['image']['jenkins-data'].build do
-  source node['jenkins']['docker']['image']['jenkins-data'].orig
-  action :create
+	source node['jenkins']['docker']['image']['jenkins-data'].orig
+	action :create
 end
 
 #
-# build docker images for jenkins-data
-docker_image node['jenkins']['docker']['image']['jenkins-data'].name do
-  source node['jenkins']['docker']['image']['jenkins-data'].source
-  action node['jenkins']['docker']['image']['jenkins-data'].action
-end
-
-#
-# create contaniner jenkins-data
-docker_container node['jenkins']['docker']['container']['jenkins-data'].name do
-	repo 		node['jenkins']['docker']['container']['jenkins-data'].repo
-  action 	node['jenkins']['docker']['container']['jenkins-data'].action
+# deploy service
+continuous_delivery_service node['jenkins']['docker']['image']['jenkins-data'].name do
+	image node['jenkins']['docker']['image']['jenkins-data']
+	container node['jenkins']['docker']['container']['jenkins-data']
 end
 
 #
@@ -171,13 +139,3 @@ end
 service "#{node['jenkins']['service']}" do
 	action :restart
 end
-
-#
-# install jenkins plugins
-# node['jenkins']['plugins'].each do |p|
-# 	execute "#{p}" do
-# 		command "docker exec jenkins-master java -jar /var/jenkins_home/war/WEB-INF/jenkins-cli.jar -s http://127.0.0.1:8080 install-plugin #{p} -restart"
-# 		not_if "docker exec jenkins-master java -jar /var/jenkins_home/war/WEB-INF/jenkins-cli.jar -s http://127.0.0.1:8080 list-plugins | grep -i #{p}"
-# 		timeout 300
-# 	end
-# end
