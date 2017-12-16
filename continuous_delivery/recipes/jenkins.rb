@@ -7,6 +7,7 @@
 
 #
 # System configuration
+#
 
 #
 # create directories 
@@ -17,26 +18,19 @@ node['jenkins']['directory'].each do |d, info|
 	end
 end
 
-
 #
 # Jenkins data
+#
 
 #
 # clear service
 if node['jenkins']['deploy']['jenkins-data']['clear'] then
 	continuous_delivery_service "Clear jenkins-data" do
-		files node['jenkins']['clear']['jenkins-data'].files
 		image node['jenkins']['docker']['image']['jenkins-data']
 		container node['jenkins']['docker']['container']['jenkins-data']
+		files node['jenkins']['files']['jenkins-data']
 		action :clear
 	end
-end
-
-#
-# import dockerfiles for jenkins data building
-cookbook_file node['jenkins']['docker']['image']['jenkins-data'].build do
-	source node['jenkins']['docker']['image']['jenkins-data'].orig
-	action :create
 end
 
 #
@@ -44,11 +38,12 @@ end
 continuous_delivery_service node['jenkins']['docker']['image']['jenkins-data'].name do
 	image node['jenkins']['docker']['image']['jenkins-data']
 	container node['jenkins']['docker']['container']['jenkins-data']
+	files node['jenkins']['files']['jenkins-data']
 end
 
 #
-# JENKINS MASTER
-#===============================
+# Jenkins master
+#
 
 #
 # import dockerfiles for jenkins-master

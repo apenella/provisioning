@@ -13,6 +13,44 @@ default['jenkins']['deploy'] = {
 }
 
 #
+# directories
+default['jenkins']['directory'] = {
+	'/srv/docker/jenkins-data' => {},
+	'/srv/docker/jenkins-master' => {},
+	'/srv/jenkins/.ssh' => {}
+}
+
+#
+# files that must been copied to server
+default['jenkins']['files'] = {
+	'jenkins-data' => [
+		{
+			'file': '/srv/docker/jenkins-master/Dockerfile',
+			'source': 'jenkins/jenkins-data/Dockerfile',
+			'action': 'create'
+		}
+	],
+	'jenkins-master' => [
+		{
+			'file': '/srv/docker/jenkins-master/config.xml',
+			'source': 'jenkins/config.xml',
+			'action': 'create'
+		},
+		{
+			'file': '/srv/docker/jenkins-master/jenkins_master_setup.sh',
+			'source': 'jenkins/jenkins_master_setup.sh',
+			'mode': '0755',
+			'action': 'create'
+		},
+		{
+			'file': '/srv/docker/jenkins-master/Dockerfile',
+			'source': 'jenkins/jenkins-master/Dockerfile',
+			'action': 'create'
+		}
+	]
+}
+
+#
 # systemd service definition
 default['jenkins']['service'] = 'jenkins'
 default['jenkins']['systemd'] = {
@@ -41,13 +79,6 @@ default['jenkins']['config']['setup'] = {
 }
 
 #
-# directories
-default['jenkins']['directory'] = {
-	'/srv/docker/jenkins-data' => {},
-	'/srv/docker/jenkins-master' => {},
-	'/srv/jenkins/.ssh' => {}
-}
-
 # docker images
 default['jenkins']['docker']['image'] = {
 	'jenkins-data' => {
