@@ -5,11 +5,11 @@
 # 2017 Aleix Penella
 #
 
-#include_recipe 'continuous_delivery::users'
 #include_recipe 'continuous_delivery::docker'
 #include_recipe 'continuous_delivery::registry'
 include_recipe 'continuous_delivery::jenkins'
 #include_recipe 'continuous_delivery::gitlab'
+#include_recipe 'continuous_delivery::users'
 #include_recipe 'continuous_delivery::test'
 
 # include portainer service

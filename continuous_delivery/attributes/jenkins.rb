@@ -61,38 +61,16 @@ default['jenkins']['systemd'] = {
 }
 
 #
-# config file for jenkins master
-default['jenkins']['config']['file'] = {
-	'name': '/tmp/config.xml',
-	'source': 'jenkins/config.xml',
-	'action': 'create',
-	'execute': 'config.xml'
-}
-
-#
-# setup for jenkins master
-default['jenkins']['config']['setup'] = {
-	'script': '/tmp/jenkins_master_setup.sh',
-	'source': 'jenkins/jenkins_master_setup.sh',
-	'mode': '0755',
-	'action': 'create'
-}
-
-#
 # docker images
 default['jenkins']['docker']['image'] = {
 	'jenkins-data' => {
 		'name': 'jenkins-data',
 		'source': '/srv/docker/jenkins-data',
-		'build': '/srv/docker/jenkins-data/Dockerfile',
-		'orig': 'jenkins/jenkins-data/Dockerfile',
 		'action': 'build_if_missing'
 	},
 	'jenkins-master' => {
 		'name': 'jenkins-master',
 		'source': '/srv/docker/jenkins-master',
-		'build': '/srv/docker/jenkins-master/Dockerfile',
-		'orig': 'jenkins/jenkins-master/Dockerfile',
 		'action': 'build_if_missing'
 	},
 }
@@ -112,20 +90,4 @@ default['jenkins']['docker']['container'] = {
 		'volumes_from': 'jenkins-data',
 		'action': 'create'
 	},
-}
-
-# attributes defined to clean the jenkins environment
-default['jenkins']['clear'] = {
-	'jenkins-data' => {
-		'files': [
-			"#{node['jenkins']['docker']['image']['jenkins-data'].build}"
-		]
-	},
-	'jenkins-master' => {
-		'files': [
-			"#{node['jenkins']['docker']['image']['jenkins-master'].build}",
-			"#{node['jenkins']['config']['setup'].script}",
-			"#{node['jenkins']['config']['file'].name}"
-		]
-	}
 }

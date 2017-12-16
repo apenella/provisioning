@@ -34,13 +34,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 				},
 				:jenkins => {
 					:deploy => {
-						'jenkins-data' => { 'clear': true },
+						'jenkins-data' => { 'clear': false },
 						'jenkins-master' => { 'clear': false }
-					},
-					:clear => {
-						:files => { 'do': false },
-						:images => { 'do': false },
-						:containers => { 'do': false }
 					}
 				},
 				:gitlab => {
@@ -79,5 +74,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   		end
 
   	end
-	
 end
