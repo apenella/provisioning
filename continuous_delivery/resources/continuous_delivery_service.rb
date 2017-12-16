@@ -20,18 +20,33 @@ default_action :deploy
 action :deploy do
 
 	#
-	# pull docker image
+	# create files
+	if !new_resource.files.empty? then
+		new_resource.files.each do |f|
+			cookbook_file "#{f.file}" do
+				source "#{f.source}"
+				if f.has_key?('mode') then mode "#{f.mode}" end
+				if f.has_key?('action') then action "#{f.action}" end
+			end
+		end
+	end
+
+	#
+	# docker image
 	if !new_resource.image.empty? then
 		docker_image new_resource.image['name'] do
 			if new_resource.image.has_key?('repo')	then repo	new_resource.image['repo']	end
 			if new_resource.image.has_key?('tag')	then tag	new_resource.image['tag']	end
-			if new_resource.image.has_key?('source')	then source	new_resource.image['source']	end							
+			if new_resource.image.has_key?('source')	then 
+				source	new_resource.image['source']	
+				only_if { ::File.exist?("#{new_resource.image['source']}") }
+			end							
 			if new_resource.image.has_key?('action')	then action	new_resource.image['action']	end
 		end
 	end
 
 	#
-	# run container
+	# docker container
 	if !new_resource.container.empty? then
 		docker_container new_resource.container['name'] do
 			repo 	new_resource.container['repo']
@@ -44,7 +59,7 @@ action :deploy do
 	end
 
 	#
-	# define service
+	# systemd service
 	if !new_resource.systemd_service.empty? then
 		template "/lib/systemd/system/#{new_resource.systemd_service['name']}.service" do
 			source 'systemd_service.erb'
@@ -66,21 +81,9 @@ action :deploy do
 	end
 end
 
-action :remove do
-	puts ">>remove"
-end
-
+#
+# clear: clears images, container, systemd services or files related to a specific service
 action :clear do
-
-	#
-	# clear files
-	if !new_resource.files.empty? then
-		new_resource.files.each do |f|
-			file f do
-				action :delete
-			end
-		end
-	end
 
 	#
 	# clear systemd service
@@ -93,11 +96,13 @@ action :clear do
 		# systemctl daemon-reload
 
 		#
-		# enable and start service
-	  service new_resource.systemd_service['name'] do
-	    action [:stop, :disable]
-	  end
+		# disable systemd service
+		service new_resource.systemd_service['name'] do
+			action [:stop, :disable]
+		end
 
+		#
+		# remove service definition files
 		file "/lib/systemd/system/#{new_resource.systemd_service['name']}.service" do
 			only_if { ::File.exist?("/lib/systemd/system/#{new_resource.systemd_service['name']}.service") }
 			action :delete
@@ -121,7 +126,6 @@ action :clear do
 		docker_container new_resource.container['name'] do
 			if new_resource.container.has_key?('tag')	then	tag	new_resource.container['tag']	end
 			remove_volumes true
-			#only_if { "docker ps -a | grep #{new_resource.container['name']}"}
 			action :delete
 		end
 	end
@@ -132,8 +136,18 @@ action :clear do
 		docker_image new_resource.image['name'] do
 			if new_resource.image.has_key?('repo')	then repo	new_resource.image['repo']	end
 			if new_resource.image.has_key?('tag')	then tag	new_resource.image['tag']	end
-			#only_if { "docker images | grep #{new_resource.container['name']}"}
 			action :remove
+		end
+	end
+
+	#
+	# clear files
+	if !new_resource.files.empty? then
+		new_resource.files.each do |f|
+			cookbook_file "#{f.file}" do
+				action :delete
+				only_if { ::File.exist?("#{f.file}") }	
+			end
 		end
 	end
 
