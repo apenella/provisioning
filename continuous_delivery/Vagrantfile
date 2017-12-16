@@ -39,6 +39,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 					}
 				},
 				:gitlab => {
+					:deploy => {
+						'clear': true
+					},
 					:config => {
 						:external_url => "http://#{$SERVER_IP}"	
 					}

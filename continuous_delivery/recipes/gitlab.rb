@@ -5,6 +5,12 @@
 # 2017 Aleix Penella
 #
 
+
+#
+# System configuration
+#
+
+#
 # create directories 
 node['gitlab']['directory'].each do |d, info|
 	directory d do
@@ -13,11 +19,30 @@ node['gitlab']['directory'].each do |d, info|
 	end
 end
 
-# pull docker image
-docker_image node['gitlab']['docker']['image'].name do
-	action :pull_if_missing
+#
+# Gitlab
+#
+
+#
+# clear service
+if node['gitlab']['deploy']['clear'] then
+	continuous_delivery_service "Clear #{node['gitlab']['service']}" do
+		#image node['gitlab']['docker']['image']
+		container node['gitlab']['docker']['container']
+		systemd_service node['gitlab']['systemd']
+		action :clear
+	end
 end
 
+#
+# deploy service
+continuous_delivery_service node['gitlab']['service'] do
+	image node['gitlab']['docker']['image']
+	container node['gitlab']['docker']['container']
+	systemd_service node['gitlab']['systemd']
+end
+
+#
 # create gitlab.rb config file
 template '/srv/gitlab/config/gitlab.rb' do
 	source 'gitlab.erb'
@@ -27,38 +52,10 @@ template '/srv/gitlab/config/gitlab.rb' do
     		listen_port:  node['gitlab']['config']['listen_port'], 
     		listen_https:  node['gitlab']['config']['listen_https'] 
   	})
-  	#notifies :run, "docker_container[#{node['gitlab']['docker']['container'].name}]", :immediately
-end
-
-# run container
-docker_container node['gitlab']['docker']['container'].name do
-	repo node['gitlab']['docker']['container'].repo
-	volumes node['gitlab']['docker']['container'].volumes
-	port  node['gitlab']['docker']['container'].port
-end
-
-systemd_unit "#{node['gitlab']['service'].name}.service" do
-	content <<-EOU.gsub(/^\s+/, '')
-		[Unit]
-		Description=gitlab service
-		Requires=docker.service
-		After=docker.service
-
-		[Service]
-		TimeoutStartSec=0
-		ExecStart=/usr/bin/docker start -a gitlab
-		ExecStop=/usr/bin/docker stop gitlab
-		Restart=on-failure
-
-		[Install]
-		WantedBy=multi-user.target
-	EOU
-
-	action [:create, :enable] 	
 end
 
 #
-# jenkins-master service
-service "#{node['gitlab']['service'].name}.service" do
+# Gitlab service
+service node['gitlab']['service'] do
 	action :restart
 end

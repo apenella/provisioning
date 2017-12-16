@@ -84,6 +84,6 @@ end
 
 #
 # jenkins-master service
-service "#{node['jenkins']['service']}" do
+service node['jenkins']['service'] do
 	action :restart
 end
