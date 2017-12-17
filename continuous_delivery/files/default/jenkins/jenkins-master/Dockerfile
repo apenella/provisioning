@@ -31,6 +31,7 @@ RUN	set -x && \
 		pipeline-multibranch-defaults \
 		build-pipeline-plugin \
 		pipeline-build-step \
+		pipeline-stage-view \
 		job-dsl \
 		docker-plugin \
 		docker-workflow \
