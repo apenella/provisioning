@@ -39,13 +39,13 @@ In the next section, will be described the _continuous_delivery_service, which i
       The image's definition Hash properties are:</br> <tt>name</tt>(required), <tt>repo</tt>, <tt>tag</tt>, <tt>source</tt> or <tt>action</tt>, defined at <a href="https://github.com/chef-cookbooks/docker#docker_image">docker_image resource</a>.
       </br>
       Example:
-      <tt>
+      <pre><code>
       {
         'name': 'registry',
         'tag': '2',
         'action': 'pull_if_missing'
       }
-      </tt>
+      </pre></code>
     </td>
   </tr>
 
@@ -57,7 +57,7 @@ In the next section, will be described the _continuous_delivery_service, which i
       The container's definition Hash properties are:</br> <tt>name</tt>(required), <tt>repo</tt>(required), <tt>tag</tt>, <tt>port</tt>, <tt>volumes</tt>, <tt>env</tt> or <tt>action</tt>, defined at <a href="https://github.com/chef-cookbooks/docker#docker_container">docker_container resource</a>.
       </br>
       Example:
-      <tt>
+      <pre><code>
       {
         'name': 'registry',
         'repo': 'registry',
@@ -68,7 +68,7 @@ In the next section, will be described the _continuous_delivery_service, which i
         ],
         'action': 'create'
       }
-      </tt>
+      </pre></code>
     </td>
   </tr>
 
@@ -80,7 +80,7 @@ In the next section, will be described the _continuous_delivery_service, which i
       Each hash could have the properties <tt>file</tt>(required), <tt>source</tt>(required), <tt>mode</tt> or <tt>action</tt>, defined at <a href="https://docs.chef.io/resource_cookbook_file.html">cookbook_file resource</a>.
       </br>
       Example:
-      <tt>
+      <pre><code>
       [
           {
             'file': '/srv/docker/jenkins-master/config.xml',
@@ -99,7 +99,7 @@ In the next section, will be described the _continuous_delivery_service, which i
             'action': 'create'
           }
         ]
-      </tt>
+      </pre></code>
     </td>
   </tr>
 
@@ -117,14 +117,14 @@ In the next section, will be described the _continuous_delivery_service, which i
       </ul>
       </br>
       Example:
-      <tt>
+      <pre><code>
       {
         'name': 'registry',
         'description': 'Service for private docker registry',
         'requires': 'docker',
         'after': 'docker'
       }
-      </tt>
+      </pre></code>
     </td>
   </tr>
 
@@ -187,12 +187,7 @@ There are some opcional components not deployed by default, like [Portainer](htt
 ### continuous_delivery::portainer
 
 
-*Attributes*
-
 ## Usage
-
-### continuous_delivery::default
-
 Include `continuous_delivery` in your node's `run_list`:
 
 ```json
@@ -202,7 +197,38 @@ Include `continuous_delivery` in your node's `run_list`:
   ]
 }
 ```
+### Examples
 
-## License and Authors
+
+- Enable Portainer service
+```
+env.vm.provision "chef_solo" do |chef|
+  chef.add_recipe "continuous_delivery"
+  chef.json = {
+    :continuous_delivery => {
+      :service => {
+        :portainer => true,
+        :registry_ui => false
+      }
+    }
+  }
+end
+```
+
+- Clear old Registry before its deployment
+```
+env.vm.provision "chef_solo" do |chef|
+  chef.add_recipe "continuous_delivery"
+  chef.json = {
+  :registry => {
+    :deploy => {
+      :clear => true
+    }
+  }  
+}
+end
+```
+
+## Author
 
 Author:: Aleix Penella (aleix.penella@gmail.com)
