@@ -62,7 +62,7 @@ In the next section, will be described the _continuous_delivery_service, which i
         'name': 'registry',
         'repo': 'registry',
         'tag': '2',
-        'port': '5000:5000'
+        'port': '5000:5000',
         'env': [
           "REGISTRY_HOST=10.0.0.2 
         ],
@@ -177,6 +177,104 @@ There are some opcional components not deployed by default, like [Portainer](htt
 </table>
 
 ### continuous_delivery::registry
+<table>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Default</th>
+  </tr>
+  <tr>
+    <td><tt>['registry']['deploy']['clear']</tt></td>
+    <td>Enable clear component's deployment before deploy it.</td>
+    <td>Boolean</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td><tt>['registry']['service']</tt></td>
+    <td>Name of the service.</td>
+    <td>String</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td><tt>['registry']['systemd']</tt></td>
+    <td>Systemd service definition to be used on continuous_delivery_service resource.</td>
+    <td>Hash</td>
+    <td>
+      <pre><cond>
+        {
+          'name': node['registry']['service'],
+          'description': 'Service for private docker registry',
+          'requires': node['docker']['service'],
+          'after': node['docker']['service']
+        }
+      </pre></cond>
+    </td>
+  </tr>
+  <tr>
+    <td><tt>['registry']['config']['host']</tt></td>
+    <td>Host where is deployed Registry service.</td>
+    <td>String</td>
+    <td>0.0.0.0</td>
+  </tr>
+  <tr>
+    <td><tt>['registry']['config']['port']</tt></td>
+    <td>Port where listen to Registry.</td>
+    <td>String</td>
+    <td>5000</td>
+  </tr>
+  <tr>
+    <td><tt>['registry']['config']['protocol']</tt></td>
+    <td>Protocol where is configured Registry [http|https].</td>
+    <td>String</td>
+    <td>http</td>
+  </tr>
+  <tr>
+    <td><tt>['registry']['config']['addr']</tt></td>
+    <td>Registry address.</td>
+    <td>String</td>
+    <td>
+      <pre><cond>
+        #{node['registry']['config']['host']}:#{node['registry']['config']['port']}
+      </pre></cond>
+    </td>
+  </tr>
+  <tr>
+    <td><tt>['registry']['docker']['image']</tt></td>
+    <td>Image definition to be used on continuous_delivery_service resource.</td>
+    <td>Hash</td>
+    <td>
+      <pre><cond>
+      {
+        'name': 'registry',
+        'tag': '2',
+        'action': 'pull_if_missing'
+      }
+      </pre></cond>
+    </td>
+  </tr>
+  <tr>
+    <td><tt>['registry']['docker']['container']</tt></td>
+    <td>Container definition to be used on continuous_delivery_service resource.</td>
+    <td>Hash</td>
+    <td>
+      <pre><cond>
+      {
+        'name': "#{node['registry']['service']}",
+        'repo': "#{node['registry']['docker']['image'].name}",
+        'tag': "#{node['registry']['docker']['image'].tag}",
+        'port': "5000:#{node['registry']['config']['port']}",
+        'env': [
+          "REGISTRY_HOST=#{node['registry']['config']['host']}",
+          "REGISTRY_STORAGE_DELETE_ENABLED=true"
+        ],
+        'action': 'create'
+      }
+      </pre></cond>
+    </td>
+  </tr>
+
+</table>
 
 ### continuous_delivery::gitlab
 
@@ -190,17 +288,16 @@ There are some opcional components not deployed by default, like [Portainer](htt
 ## Usage
 Include `continuous_delivery` in your node's `run_list`:
 
-```json
-{
-  "run_list": [
-    "recipe[continuous_delivery::default]"
-  ]
-}
+```
+env.vm.provision "chef_solo" do |chef|
+  chef.add_recipe "continuous_delivery"
+end
 ```
 ### Examples
+Some examples of how to modify your deployment changing the attributes' default values, into `Vagrantfile`.
 
+- Enable Portainer service:
 
-- Enable Portainer service
 ```
 env.vm.provision "chef_solo" do |chef|
   chef.add_recipe "continuous_delivery"
@@ -215,7 +312,8 @@ env.vm.provision "chef_solo" do |chef|
 end
 ```
 
-- Clear old Registry before its deployment
+- Clear old Registry before its new deployment:
+
 ```
 env.vm.provision "chef_solo" do |chef|
   chef.add_recipe "continuous_delivery"
