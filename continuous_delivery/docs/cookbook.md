@@ -7,16 +7,17 @@ A resource, named continuous_delivery_service, belonging at this cookbook, is re
 > Note: This environment has been thought for testing, learning or developing purposes, then is not recomended to use it on a productive environment.
 
 ## Dependencies
-Continuous delivery's cookbook has dependencies to:
+Continuous delivery's cookbook depends to:
 - [docker cookbook](https://supermarket.chef.io/cookbooks/docker), version '~> 2.0'
 - [ssh_keygen cookbook](https://supermarket.chef.io/cookbooks/ssh_keygen), version '~> 1.1.0'
 
-## resources
+## Resources
 In the next section, will be described the _continuous_delivery_service, which is responsible to create those elements needed for a service to be run.
 
 ### continuous_delivery_service
 
-*Properties
+*Properties*
+
 <table>
   <tr>
     <th>Property</th>
@@ -24,123 +25,133 @@ In the next section, will be described the _continuous_delivery_service, which i
     <th>Description</th>
     <th>Default</th>
   </tr>
+
   <tr>
-    <td><tt>name</tt></td>
+    <td>name</td>
     <td>String</td>
     <td>Name for the service to be created</td>
-    <td><tt>-</tt></td>
+    <td></td>
   </tr>
+  
   <tr>
-    <td><tt>image</tt></td>
+    <td>image</td>
     <td>Hash</td>
-    <td>It defines the image used by container's service.
-The Hash could have the properties <tt>name</tt>(required), <tt>repo</tt>, <tt>tag</tt>, <tt>source</tt> or <tt>action</tt>, defined on [docker_image resource](https://github.com/chef-cookbooks/docker#docker_image).
+    <td>
+        It defines the image used by container's service.</br>
+        The image's definition Hash properties are:</br> <tt>name</tt>(required), <tt>repo</tt>, <tt>tag</tt>, <tt>source</tt> or <tt>action</tt>, defined at <a href="https://github.com/chef-cookbooks/docker#docker_image">docker_image resource</a>.
 
-Example:
-```
-{
-  'name': 'registry',
-  'tag': '2',
-  'action': 'pull_if_missing'
-}
-```
+        Example:
+        ```
+        {
+          'name': 'registry',
+          'tag': '2',
+          'action': 'pull_if_missing'
+        }
+        ```
     </td>
-    <td><tt>{}</tt></td>
+    <td>{}</td>
   </tr>
+
   <tr>
-    <td><tt>container</tt></td>
+    <td>container</td>
     <td>Hash</td>
-    <td>It defines the container where the service runs in.
-The Hash could have the properties <tt>name</tt>(required), <tt>repo</tt>(required), <tt>tag</tt>, <tt>port</tt>, <tt>volumes</tt>, <tt>env</tt> or <tt>action</tt>, defined on [docker_container resource](https://github.com/chef-cookbooks/docker#docker_container).
+    <td>
+      It defines the container where the service runs in.</br>
+      The container's definition Hash properties are:</br> <tt>name</tt>(required), <tt>repo</tt>(required), <tt>tag</tt>, <tt>port</tt>, <tt>volumes</tt>, <tt>env</tt> or <tt>action</tt>, defined at <a href="https://github.com/chef-cookbooks/docker#docker_container">docker_container resource</a>.
 
-Example:
-```
-{
-  'name': 'registry',
-  'repo': 'registry',
-  'tag': '2',
-  'port': '5000:5000'
-  'env': [
-    "REGISTRY_HOST=10.0.0.2 
-  ],
-  'action': 'create'
-}
-```
+      Example:
+      ```
+      {
+        'name': 'registry',
+        'repo': 'registry',
+        'tag': '2',
+        'port': '5000:5000'
+        'env': [
+          "REGISTRY_HOST=10.0.0.2 
+        ],
+        'action': 'create'
+      }
+      ```
     </td>
-    <td><tt>{}</tt></td>
+    <td>{}</td>
   </tr>
+
   <tr>
-    <td><tt>files</tt></td>
+    <td>files</td>
     <td>Array</td>
-    <td>This property requires an array of hashes where are defined the files that must be copied from to host.
-Each hash could have the properties <tt>file</tt>(required), <tt>source</tt>(required), <tt>mode</tt> or <tt>action</tt>, defined on [cookbook_file resource](https://docs.chef.io/resource_cookbook_file.html).
+    <td>
+      This property requires an array of hashes where are defined the files that must be copied from to host.</br>
+      Each hash could have the properties <tt>file</tt>(required), <tt>source</tt>(required), <tt>mode</tt> or <tt>action</tt>, defined at <a href="https://docs.chef.io/resource_cookbook_file.html">cookbook_file resource</a>.
 
-Example:
-```
-[
-    {
-      'file': '/srv/docker/jenkins-master/config.xml',
-      'source': 'jenkins/config.xml',
-      'action': 'create'
-    },
-    {
-      'file': '/srv/docker/jenkins-master/jenkins_master_setup.sh',
-      'source': 'jenkins/jenkins_master_setup.sh',
-      'mode': '0755',
-      'action': 'create'
-    },
-    {
-      'file': '/srv/docker/jenkins-master/Dockerfile',
-      'source': 'jenkins/jenkins-master/Dockerfile',
-      'action': 'create'
-    }
-  ]
-```
+      Example:
+      ```
+      [
+          {
+            'file': '/srv/docker/jenkins-master/config.xml',
+            'source': 'jenkins/config.xml',
+            'action': 'create'
+          },
+          {
+            'file': '/srv/docker/jenkins-master/jenkins_master_setup.sh',
+            'source': 'jenkins/jenkins_master_setup.sh',
+            'mode': '0755',
+            'action': 'create'
+          },
+          {
+            'file': '/srv/docker/jenkins-master/Dockerfile',
+            'source': 'jenkins/jenkins-master/Dockerfile',
+            'action': 'create'
+          }
+        ]
+      ```
     </td>
-    <td><tt>[]</tt></td>
+    <td>[]</td>
   </tr>
-  <tr>
-    <td><tt>systemd_service</tt></td>
-    <td>Hash</td>
-    <td>Defines the systemd services based <tt>'systemd_service.erb'</tt> template.
-The properties required to fill the template are: 
-- <tt>name</tt>: Container's name where the service runs in.
-- <tt>description</tt>: A description about the service.
-- <tt>requires</tt>: Dependencies to other services, like docker services.
-- <tt>after</tt>: Whether services must start after another services. Mainly docker service.
 
-Example:
-```
-{
-  'name': 'registry',
-  'description': 'Service for private docker registry',
-  'requires': 'docker',
-  'after': 'docker'
-}
-```
-      </td>
-    <td><tt>{}</tt></td>
+  <tr>
+    <td>systemd_service</td>
+    <td>Hash</td>
+    <td>
+      Defines the systemd services based <tt>'systemd_service.erb'</tt> template.</br>
+      The properties required to fill the template are:</br>
+      <li>name: Container's name where the service runs in.</li>
+      <li>description: A description about the service.</li>
+      <li>requires: Dependencies to other services, like docker services.</li>
+      <li>after: Whether services must start after another services. Mainly docker service.</li>
+
+      Example:
+      ```
+      {
+        'name': 'registry',
+        'description': 'Service for private docker registry',
+        'requires': 'docker',
+        'after': 'docker'
+      }
+      ```
+    </td>
+    <td>{}</td>
+
   </tr>
 </table>
 
-*Actions
+*Actions*
 <table>
   <tr>
     <th>Action</th>
     <th>Description</th>
   </tr>
   <tr>
-    <td><tt>deploy</tt></td>
+    <td>deploy</td>
     <td>Creates those elements needed for the service to be run.</td>
   </tr>
   <tr>
-    <td><tt>clear</tt></td>
+    <td>clear</td>
     <td>Removes all elements created during the service deployment.</td>
   </tr>
 </table>
 
-## recipes
-In the next section, are presented the recipies
+## Recipes
+In the next section, are presented the recipies defined on this cookbook.
 
 ### continuous_delivery::default
 Default recipe controls the others recipes execution, installing the required pieces to the host and then deploys the continuous delivery environment components.
