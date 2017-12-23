@@ -202,12 +202,12 @@ There are some opcional components not deployed by default, like [Portainer](htt
     <td>Hash</td>
     <td>
       <pre><cond>
-        {
-          'name': node['registry']['service'],
-          'description': 'Service for private docker registry',
-          'requires': node['docker']['service'],
-          'after': node['docker']['service']
-        }
+{
+  'name': node['registry']['service'],
+  'description': 'Service for private docker registry',
+  'requires': node['docker']['service'],
+  'after': node['docker']['service']
+}
       </pre></cond>
     </td>
   </tr>
@@ -245,11 +245,11 @@ There are some opcional components not deployed by default, like [Portainer](htt
     <td>Hash</td>
     <td>
       <pre><cond>
-      {
-        'name': 'registry',
-        'tag': '2',
-        'action': 'pull_if_missing'
-      }
+{
+  'name': 'registry',
+  'tag': '2',
+  'action': 'pull_if_missing'
+}
       </pre></cond>
     </td>
   </tr>
@@ -259,17 +259,17 @@ There are some opcional components not deployed by default, like [Portainer](htt
     <td>Hash</td>
     <td>
       <pre><cond>
-      {
-        'name': "#{node['registry']['service']}",
-        'repo': "#{node['registry']['docker']['image'].name}",
-        'tag': "#{node['registry']['docker']['image'].tag}",
-        'port': "5000:#{node['registry']['config']['port']}",
-        'env': [
-          "REGISTRY_HOST=#{node['registry']['config']['host']}",
-          "REGISTRY_STORAGE_DELETE_ENABLED=true"
-        ],
-        'action': 'create'
-      }
+{
+  'name': "#{node['registry']['service']}",
+  'repo': "#{node['registry']['docker']['image'].name}",
+  'tag': "#{node['registry']['docker']['image'].tag}",
+  'port': "5000:#{node['registry']['config']['port']}",
+  'env': [
+    "REGISTRY_HOST=#{node['registry']['config']['host']}",
+    "REGISTRY_STORAGE_DELETE_ENABLED=true"
+  ],
+  'action': 'create'
+}
       </pre></cond>
     </td>
   </tr>
