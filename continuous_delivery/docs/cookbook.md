@@ -6,6 +6,12 @@ A resource, named continuous_delivery_service, belonging at this cookbook, is re
 
 > Note: This environment has been thought for testing, learning or developing purposes, then is not recomended to use it on a productive environment.
 
+## Preconditions
+This cookbook has been written and tested:
+- Vagrant version: 1.8.7, and plugin vagrant-berkshelf (5.1.1)
+- chef version '12.20.3'
+- vagrant box ubuntu/xenial64
+
 ## Dependencies
 Continuous delivery's cookbook depends to:
 - [docker cookbook](https://supermarket.chef.io/cookbooks/docker), version '~> 2.0'
@@ -40,11 +46,11 @@ In the next section, will be described the _continuous_delivery_service, which i
       </br>
       Example:
       <pre><code>
-      {
-        'name': 'registry',
-        'tag': '2',
-        'action': 'pull_if_missing'
-      }
+{
+  'name': 'registry',
+  'tag': '2',
+  'action': 'pull_if_missing'
+}
       </pre></code>
     </td>
   </tr>
@@ -58,16 +64,16 @@ In the next section, will be described the _continuous_delivery_service, which i
       </br>
       Example:
       <pre><code>
-      {
-        'name': 'registry',
-        'repo': 'registry',
-        'tag': '2',
-        'port': '5000:5000',
-        'env': [
-          "REGISTRY_HOST=10.0.0.2 
-        ],
-        'action': 'create'
-      }
+{
+  'name': 'registry',
+  'repo': 'registry',
+  'tag': '2',
+  'port': '5000:5000',
+  'env': [
+    "REGISTRY_HOST=10.0.0.2 
+  ],
+  'action': 'create'
+}
       </pre></code>
     </td>
   </tr>
@@ -81,24 +87,24 @@ In the next section, will be described the _continuous_delivery_service, which i
       </br>
       Example:
       <pre><code>
-      [
-          {
-            'file': '/srv/docker/jenkins-master/config.xml',
-            'source': 'jenkins/config.xml',
-            'action': 'create'
-          },
-          {
-            'file': '/srv/docker/jenkins-master/jenkins_master_setup.sh',
-            'source': 'jenkins/jenkins_master_setup.sh',
-            'mode': '0755',
-            'action': 'create'
-          },
-          {
-            'file': '/srv/docker/jenkins-master/Dockerfile',
-            'source': 'jenkins/jenkins-master/Dockerfile',
-            'action': 'create'
-          }
-        ]
+[
+  {
+    'file': '/srv/docker/jenkins-master/config.xml',
+    'source': 'jenkins/config.xml',
+    'action': 'create'
+  },
+  {
+    'file': '/srv/docker/jenkins-master/jenkins_master_setup.sh',
+    'source': 'jenkins/jenkins_master_setup.sh',
+    'mode': '0755',
+    'action': 'create'
+  },
+  {
+    'file': '/srv/docker/jenkins-master/Dockerfile',
+    'source': 'jenkins/jenkins-master/Dockerfile',
+    'action': 'create'
+  }
+]
       </pre></code>
     </td>
   </tr>
@@ -118,12 +124,12 @@ In the next section, will be described the _continuous_delivery_service, which i
       </br>
       Example:
       <pre><code>
-      {
-        'name': 'registry',
-        'description': 'Service for private docker registry',
-        'requires': 'docker',
-        'after': 'docker'
-      }
+{
+  'name': 'registry',
+  'description': 'Service for private docker registry',
+  'requires': 'docker',
+  'after': 'docker'
+}
       </pre></code>
     </td>
   </tr>
@@ -154,7 +160,7 @@ Default recipe controls the others recipes execution, installing the required pi
 
 There are some opcional components not deployed by default, like [Portainer](https://portainer.io/) or [Registry UI](https://github.com/parabuzzle/craneoperator), but is possible to deploy them changing some attributes' values. These attributes are described below.
 
-**Attributes**
+
 <table>
   <tr>
     <th>Attribute</th>
@@ -177,6 +183,9 @@ There are some opcional components not deployed by default, like [Portainer](htt
 </table>
 
 ### continuous_delivery::registry
+Registry recipe is responsible to deploy the docker registry where the new releases' images must be pushed to.
+
+#### Attributes
 <table>
   <tr>
     <th>Attribute</th>
@@ -235,7 +244,7 @@ There are some opcional components not deployed by default, like [Portainer](htt
     <td>String</td>
     <td>
       <pre><cond>
-        #{node['registry']['config']['host']}:#{node['registry']['config']['port']}
+#{node['registry']['config']['host']}:#{node['registry']['config']['port']}
       </pre></cond>
     </td>
   </tr>
@@ -277,12 +286,229 @@ There are some opcional components not deployed by default, like [Portainer](htt
 </table>
 
 ### continuous_delivery::gitlab
+Gitlab recipe is responsible to deploy the Gitlab component used as source code management system.
+
+#### Attributes
+<table>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Default</th>
+  </tr>
+  <tr>
+    <td><tt>['gitlab']['deploy']['clear']</tt></td>
+    <td>Enable clear component's deployment before deploy it.</td>
+    <td>Boolean</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td><tt>['gitlab']['config']['external_url']</tt></td>
+    <td>External URL to login to GitLab.</td>
+    <td>String</td>
+    <td>http://localhost</td>
+  </tr>
+  <tr>
+    <td><tt>['gitlab']['config']['listen_port']</tt></td>
+    <td>Port configured to access into GitLab web portal.</td>
+    <td>Integer</td>
+    <td>80</td>
+  </tr>
+  <tr>
+    <td><tt>['gitlab']['config']['ssh_port']</tt></td>
+    <td>Port configured to access into GitLab using ssh.</td>
+    <td>Integer</td>
+    <td>2222</td>
+  </tr>
+  <tr>
+    <td><tt>['gitlab']['config']['listen_https']</tt></td>
+    <td>Enable https access.</td>
+    <td>Boolean</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td><tt>['gitlab']['directory']</tt></td>
+    <td>List of directories to be created on host.</td>
+    <td>Hash</td>
+    <td>
+<pre><cond>
+{
+  '/srv/gitlab/data' => {},
+  '/srv/gitlab/logs' => {},
+  '/srv/gitlab/config' => {}
+}
+</pre></cond>
+    </td>
+  </tr>
+  <tr>
+    <td><tt>['gitlab']['files']</tt></td>
+    <td>List of files to be used on continuous_delivery_service resource.</td>
+    <td>Array</td>
+    <td>
+<pre><cond>
+[
+  {
+    'file': '/srv/gitlab/config/gitlab.rb',
+    'source': '#is a template and will not be created be continuous_delivery_services resource',
+    'action': 'create'
+  }
+]
+</pre></cond>
+    </td>
+  </tr>
+  <tr>
+    <td><tt>['gitlab']['service']</tt></td>
+    <td>Name of the service.</td>
+    <td>String</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td><tt>['gitlab']['systemd']</tt></td>
+    <td>Systemd service definition to be used on continuous_delivery_service resource.</td>
+    <td>Hash</td>
+    <td>
+      <pre><cond>
+{
+  'name': node['gitlab']['service'],
+  'description': 'gitlab service',
+  'requires': node['docker']['service'],
+  'after': node['docker']['service']
+}
+      </pre></cond>
+    </td>
+  </tr>
+  <tr>
+    <td><tt>['gitlab']['docker']['image']</tt></td>
+    <td>Image definition to be used on continuous_delivery_service resource.</td>
+    <td>Hash</td>
+    <td>
+      <pre><cond>
+{
+  'name': 'gitlab/gitlab-ce',
+  'tag': 'latest',
+  'action': 'pull_if_missing'
+}
+      </pre></cond>
+    </td>
+  </tr>
+  <tr>
+    <td><tt>['gitlab']['docker']['container']</tt></td>
+    <td>Container definition to be used on continuous_delivery_service resource.</td>
+    <td>Hash</td>
+    <td>
+      <pre><cond>
+{
+  'name': 'gitlab',
+  'repo': "#{node['gitlab']['docker']['image'].name}",
+  'volumes': [
+    "/srv/gitlab/data:/var/opt/gitlab",
+    "/srv/gitlab/logs:/var/log/gitlab",
+    "/srv/gitlab/config:/etc/gitlab"
+  ],
+  'port': [
+    "80:80",
+    "443:443",
+    "#{node['gitlab']['config']['ssh_port']}:22"
+  ],
+  'action': 'create'
+}
+      </pre></cond>
+    </td>
+  </tr>
+
+
+</table>
 
 ### continuous_delivery::jenkins
+Jenkins recipe is responsible to deploy the Jenkins component, which will let to automate the delivery process and to release our application frequently.
 
+#### Attributes
+<table>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Default</th>
+  </tr>
+  <tr>
+    <td><tt>['jenkins']['deploy']['clear']</tt></td>
+    <td>Enable clear component's deployment before deploy it.</td>
+    <td>Boolean</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td><tt>['continuous_delivery']['service']['registry_ui']</tt></td>
+    <td>Enable a web console for to manage Registry service.</td>
+    <td>Boolean</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td><tt>['continuous_delivery']['service']['portainer']</tt></td>
+    <td>Enable Portainer's service, to manage docker engine.</td>
+    <td>Boolean</td>
+    <td>false</td>
+  </tr>
+</table>
 ### continuous_delivery::registry_ui
+Registry UI recipe is responsible to deploy the component which will let to control the environment's docker registry status.
 
+#### Attributes
+<table>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Default</th>
+  </tr>
+  <tr>
+    <td><tt>['registry_ui']['deploy']['clear']</tt></td>
+    <td>Enable clear component's deployment before deploy it.</td>
+    <td>Boolean</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td><tt>['continuous_delivery']['service']['registry_ui']</tt></td>
+    <td>Enable a web console for to manage Registry service.</td>
+    <td>Boolean</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td><tt>['continuous_delivery']['service']['portainer']</tt></td>
+    <td>Enable Portainer's service, to manage docker engine.</td>
+    <td>Boolean</td>
+    <td>false</td>
+  </tr>
+</table>
 ### continuous_delivery::portainer
+Portainer recipe is responsible to deploy the component which will let to control the host's docker engine.
+
+#### Attributes
+<table>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Default</th>
+  </tr>
+  <tr>
+    <td><tt>['portainer']['deploy']['clear']</tt></td>
+    <td>Enable clear component's deployment before deploy it.</td>
+    <td>Boolean</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td><tt>['continuous_delivery']['service']['registry_ui']</tt></td>
+    <td>Enable a web console for to manage Registry service.</td>
+    <td>Boolean</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td><tt>['continuous_delivery']['service']['portainer']</tt></td>
+    <td>Enable Portainer's service, to manage docker engine.</td>
+    <td>Boolean</td>
+    <td>false</td>
+  </tr>
+</table>
 
 
 ## Usage
