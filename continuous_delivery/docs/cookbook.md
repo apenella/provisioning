@@ -7,10 +7,10 @@ A resource, named continuous_delivery_service, belonging at this cookbook, is re
 > Note: This environment has been thought for testing, learning or developing purposes, then is not recomended to use it on a productive environment.
 
 ## Preconditions
-This cookbook has been written and tested:
-- Vagrant version: 1.8.7, and plugin vagrant-berkshelf (5.1.1)
-- chef version '12.20.3'
-- vagrant box ubuntu/xenial64
+This cookbook has been developed and tested using:
+- Vagrant version 1.8.7, with plugin vagrant-berkshelf 5.1.1
+- Vagrant is forced to use chef version '12.20.3'
+- Vagrant box ubuntu/xenial64, version 20170730.0.0
 
 ## Dependencies
 Continuous delivery's cookbook depends to:
@@ -18,7 +18,7 @@ Continuous delivery's cookbook depends to:
 - [ssh_keygen cookbook](https://supermarket.chef.io/cookbooks/ssh_keygen), version '~> 1.1.0'
 
 ## Resources
-In the next section, will be described the _continuous_delivery_service, which is responsible to create those elements needed for a service to be run.
+In the next section, will be described the continuous_delivery_service resource, which is responsible to create those elements needed for a service to be run.
 
 ### continuous_delivery_service
 
@@ -156,7 +156,7 @@ In the next section, will be described the _continuous_delivery_service, which i
 In the next section, are presented the recipies defined on this cookbook.
 
 ### continuous_delivery::default
-Default recipe controls the others recipes execution, installing the required pieces to the host and then deploys the continuous delivery environment components.
+Default recipe controls recipes execution, installing the required pieces to the host and then deploys the continuous delivery environment components.
 
 There are some opcional components not deployed by default, like [Portainer](https://portainer.io/) or [Registry UI](https://github.com/parabuzzle/craneoperator), but is possible to deploy them changing some attributes' values. These attributes are described below.
 
@@ -420,7 +420,7 @@ Gitlab recipe is responsible to deploy the Gitlab component used as source code 
 </table>
 
 ### continuous_delivery::jenkins
-Jenkins recipe is responsible to deploy the Jenkins component, which will let to automate the delivery process and to release our application frequently.
+Jenkins recipe is responsible to deploy the Jenkins component, which lets to automate the delivery process and to release our application frequently.
 
 #### Attributes
 <table>
@@ -514,7 +514,7 @@ Portainer recipe is responsible to deploy the component which will let to contro
 ## Usage
 Include `continuous_delivery` in your node's `run_list`:
 
-```
+```ruby
 env.vm.provision "chef_solo" do |chef|
   chef.add_recipe "continuous_delivery"
 end
@@ -524,7 +524,7 @@ Some examples of how to modify your deployment changing the attributes' default 
 
 - Enable Portainer service:
 
-```
+```ruby
 env.vm.provision "chef_solo" do |chef|
   chef.add_recipe "continuous_delivery"
   chef.json = {
@@ -540,7 +540,7 @@ end
 
 - Clear old Registry before its new deployment:
 
-```
+```ruby
 env.vm.provision "chef_solo" do |chef|
   chef.add_recipe "continuous_delivery"
   chef.json = {
