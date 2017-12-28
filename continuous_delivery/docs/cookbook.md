@@ -11,10 +11,19 @@ A resource, named continuous_delivery_service, belonging at this cookbook, is re
 - [Precondition](#precondition)
 - [Dependencies](#dependencies)
 - [Resources](#resources)
+  * [continuous_delivery_service](#continuous_delivery_service)
+    + [Properties](#properties)
+    + [Actions](#actions)
 - [Recipes](#recipes)
+  * [continuous_delivery::default](#continuous_delivery::default)
+  * [continuous_delivery::registry](#continuous_delivery::registry)
+  * [continuous_delivery::gitlab](#continuous_delivery::gitlab)
+  * [continuous_delivery::jenkins](#continuous_delivery::jenkins)
+  * [continuous_delivery::registry_ui](#continuous_delivery::registry_ui)
+  * [continuous_delivery::portainer](#continuous_delivery::portainer)
 - [Usage](#usage)
+  * [Examples](#examples)
 - [Author](#author)
-
 
 ## Preconditions
 This cookbook has been developed and tested using:
@@ -490,6 +499,7 @@ Registry UI recipe is responsible to deploy the component which will let to cont
     <td>false</td>
   </tr>
 </table>
+
 ### continuous_delivery::portainer
 Portainer recipe is responsible to deploy the component which will let to control the host's docker engine.
 
