@@ -8,12 +8,12 @@ A resource, named continuous_delivery_service, belonging at this cookbook, is re
 
 ## Table of Contents
 
-- [Precondition](#Precondition)
-- [Dependencies](#Dependencies)
-- [Resources](#Resources)
-- [Recipes](#Recipes)
-- [Usage](#Usage)
-- [Author](#Author)
+- [Precondition](#precondition)
+- [Dependencies](#dependencies)
+- [Resources](#resources)
+- [Recipes](#recipes)
+- [Usage](#usage)
+- [Author](#author)
 
 
 ## Preconditions
