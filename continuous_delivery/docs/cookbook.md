@@ -11,18 +11,18 @@ A resource, named continuous_delivery_service, belonging at this cookbook, is re
 - [Precondition](#precondition)
 - [Dependencies](#dependencies)
 - [Resources](#resources)
-  * [continuous_delivery_service](#continuous_delivery_service)
-    + [Properties](#properties)
-    + [Actions](#actions)
+  - [continuous_delivery_service](#continuous_delivery_service)
+    - [Properties](#properties)
+    - [Actions](#actions)
 - [Recipes](#recipes)
-  * [continuous_delivery::default](#continuous_delivery::default)
-  * [continuous_delivery::registry](#continuous_delivery::registry)
-  * [continuous_delivery::gitlab](#continuous_delivery::gitlab)
-  * [continuous_delivery::jenkins](#continuous_delivery::jenkins)
-  * [continuous_delivery::registry_ui](#continuous_delivery::registry_ui)
-  * [continuous_delivery::portainer](#continuous_delivery::portainer)
+  - [continuous_delivery-default](#continuous_delivery-default)
+  - [continuous_delivery-registry](#registry)
+  - [continuous_delivery-gitlab](#gitlab)
+  - [continuous_delivery-jenkins](#jenkins)
+  - [continuous_delivery-registry_ui](#registry_ui)
+  - [continuous_delivery-portainer](#portainer)
 - [Usage](#usage)
-  * [Examples](#examples)
+  - [Examples](#examples)
 - [Author](#author)
 
 ## Preconditions
@@ -174,7 +174,7 @@ In the next section, will be described the continuous_delivery_service resource,
 ## Recipes
 In the next section, are presented the recipies defined on this cookbook.
 
-### continuous_delivery::default
+### continuous_delivery-default
 Default recipe controls recipes execution, installing the required pieces to the host and then deploys the continuous delivery environment components.
 
 There are some opcional components not deployed by default, like [Portainer](https://portainer.io/) or [Registry UI](https://github.com/parabuzzle/craneoperator), but is possible to deploy them changing some attributes' values. These attributes are described below.
