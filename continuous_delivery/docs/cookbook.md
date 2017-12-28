@@ -16,11 +16,11 @@ A resource, named continuous_delivery_service, belonging at this cookbook, is re
     - [Actions](#actions)
 - [Recipes](#recipes)
   - [continuous_delivery-default](#continuous_delivery-default)
-  - [continuous_delivery-registry](#registry)
-  - [continuous_delivery-gitlab](#gitlab)
-  - [continuous_delivery-jenkins](#jenkins)
-  - [continuous_delivery-registry_ui](#registry_ui)
-  - [continuous_delivery-portainer](#portainer)
+  - [continuous_delivery-registry](#continuous_delivery-registry)
+  - [continuous_delivery-gitlab](#continuous_delivery-gitlab)
+  - [continuous_delivery-jenkins](#continuous_delivery-jenkins)
+  - [continuous_delivery-registry_ui](#continuous_delivery-registry_ui)
+  - [continuous_delivery-portainer](#continuous_delivery-portainer)
 - [Usage](#usage)
   - [Examples](#examples)
 - [Author](#author)
@@ -201,7 +201,7 @@ There are some opcional components not deployed by default, like [Portainer](htt
   </tr>
 </table>
 
-### continuous_delivery::registry
+### continuous_delivery-registry
 Registry recipe is responsible to deploy the docker registry where the new releases' images must be pushed to.
 
 #### Attributes
@@ -304,7 +304,7 @@ Registry recipe is responsible to deploy the docker registry where the new relea
 
 </table>
 
-### continuous_delivery::gitlab
+### continuous_delivery-gitlab
 Gitlab recipe is responsible to deploy the Gitlab component used as source code management system.
 
 #### Attributes
@@ -438,7 +438,7 @@ Gitlab recipe is responsible to deploy the Gitlab component used as source code 
 
 </table>
 
-### continuous_delivery::jenkins
+### continuous_delivery-jenkins
 Jenkins recipe is responsible to deploy the Jenkins component, which lets to automate the delivery process and to release our application frequently.
 
 #### Attributes
@@ -469,7 +469,7 @@ Jenkins recipe is responsible to deploy the Jenkins component, which lets to aut
   </tr>
 </table>
 
-### continuous_delivery::registry_ui
+### continuous_delivery-registry_ui
 Registry UI recipe is responsible to deploy the component which will let to control the environment's docker registry status.
 
 #### Attributes
@@ -500,7 +500,7 @@ Registry UI recipe is responsible to deploy the component which will let to cont
   </tr>
 </table>
 
-### continuous_delivery::portainer
+### continuous_delivery-portainer
 Portainer recipe is responsible to deploy the component which will let to control the host's docker engine.
 
 #### Attributes
