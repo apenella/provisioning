@@ -27,4 +27,4 @@ After a while, the environment is already deployed and you could manage Marathon
 
 ## Author
 
-Author:: Aleix Penella (aleix.penella@gmail.com)
+Author:: Aleix Penella (aleix.penella [at] gmail.com)

@@ -8,4 +8,4 @@ At the begining I prepared the environments in order to skip the tedious tasks o
 - [Mesos-marathon](mesos-marathon/README.md)
 
 ## Author
-Author:: Aleix Penella (aleix.penella@gmail.com)
+Author:: Aleix Penella (aleix.penella [at] gmail.com)

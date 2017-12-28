@@ -8,7 +8,7 @@ A resource, named continuous_delivery_service, belonging at this cookbook, is re
 
 ## Table of Contents
 
-- [Precondition](#precondition)
+- [Preconditions](#preconditions)
 - [Dependencies](#dependencies)
 - [Resources](#resources)
   - [continuous_delivery_service](#continuous_delivery_service)
@@ -576,4 +576,4 @@ end
 
 ## Author
 
-Author:: Aleix Penella (aleix.penella@gmail.com)
+Author:: Aleix Penella (aleix.penella [at] gmail.com)
