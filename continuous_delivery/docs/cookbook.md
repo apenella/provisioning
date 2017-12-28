@@ -6,6 +6,16 @@ A resource, named continuous_delivery_service, belonging at this cookbook, is re
 
 > Note: This environment has been thought for testing, learning or developing purposes, then is not recomended to use it on a productive environment.
 
+## Table of Contents
+
+- [Precondition](#Precondition)
+- [Dependencies](#Dependencies)
+- [Resources](#Resources)
+- [Recipes](#Recipes)
+- [Usage](#Usage)
+- [Author](#Author)
+
+
 ## Preconditions
 This cookbook has been developed and tested using:
 - Vagrant version 1.8.7, with plugin vagrant-berkshelf 5.1.1
@@ -22,7 +32,7 @@ In the next section, will be described the continuous_delivery_service resource,
 
 ### continuous_delivery_service
 
-**Properties**
+#### Properties
 
 <table>
   <tr>
@@ -136,7 +146,7 @@ In the next section, will be described the continuous_delivery_service resource,
 
 </table>
 
-**Actions**
+#### Actions
 <table>
   <tr>
     <th>Action</th>
@@ -170,13 +180,13 @@ There are some opcional components not deployed by default, like [Portainer](htt
   </tr>
   <tr>
     <td><tt>['continuous_delivery']['service']['registry_ui']</tt></td>
-    <td>Enable a web console for to manage Registry service.</td>
+    <td>Enables a web console to manage Registry service.</td>
     <td>Boolean</td>
     <td>false</td>
   </tr>
   <tr>
     <td><tt>['continuous_delivery']['service']['portainer']</tt></td>
-    <td>Enable Portainer's service, to manage docker engine.</td>
+    <td>Enables Portainer's service, to manage docker engine.</td>
     <td>Boolean</td>
     <td>false</td>
   </tr>
@@ -449,6 +459,7 @@ Jenkins recipe is responsible to deploy the Jenkins component, which lets to aut
     <td>false</td>
   </tr>
 </table>
+
 ### continuous_delivery::registry_ui
 Registry UI recipe is responsible to deploy the component which will let to control the environment's docker registry status.
 
