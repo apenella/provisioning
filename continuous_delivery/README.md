@@ -4,12 +4,10 @@ The goal of this environment is to provide a whole set of tools that should
 
 ## Who should read this article
 
-## Preconditions
-I used Ubuntu 14.04 LTS 
-- Vagrant version: 1.8.7
-- vagrant-berkshelf (5.1.1)
-- Ubuntu xenial
-- chef version '12.20.3'
+This environment has been prepared using:
+- Vagrant version 1.8.7, with plugin vagrant-berkshelf 5.1.1
+- Vagrant is forced to use chef client version '12.20.3'
+- Vagrant box ubuntu/xenial64, version 20170730.0.0
 
 ## Deployment
 - Registry

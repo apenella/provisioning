@@ -22,8 +22,7 @@ After a while, the environment is already deployed and you could manage Marathon
 ## References
 - [https://mesosphere.github.io/marathon/docs/](https://mesosphere.github.io/marathon/docs/)
 - [http://www.swisspush.org/clustering/2014/12/05/install-mesos-on-singlenode](http://www.swisspush.org/clustering/2014/12/05/install-mesos-on-singlenode)
-- [https://www.digitalocean.com/community/tutorials/an-introduction-to-mesosphere](https://www.digitalocean.com/community/tutorials/an-introduction-to-mesosphere)
-
+- [https://www.digitalocean.com/community/tutorials/how-to-configure-a-production-ready-mesosphere-cluster-on-ubuntu-14-04](https://www.digitalocean.com/community/tutorials/how-to-configure-a-production-ready-mesosphere-cluster-on-ubuntu-14-04)
 
 ## Author
 
