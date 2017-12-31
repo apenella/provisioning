@@ -12,7 +12,7 @@ The deployment of whole environment is done over Vagrant, using vagrant-berkshel
 
 The cookbook installs Docker engine on the host, builds or pulls the required docker images locally and finally create a container for each component. Even more, all components have it own systemd service 
 
-![design](docs/images/design.svg)
+![design](docs/images/design.png)
 
 ## References
 - [https://www.madetech.com/blog/continuous-delivery-with-jenkins](https://www.madetech.com/blog/continuous-delivery-with-jenkins)
