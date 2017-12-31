@@ -7,7 +7,13 @@
 require 'json'
 
 docker_service 'default' do
-  action [:create, :start]
+	group node['docker']['config']['group']
+	action [:create, :start]
+end
+
+directory node['docker']['config']['directory'] do
+	recursive true
+	action :create
 end
 
 
@@ -36,10 +42,11 @@ if insecure_registries.length > 0
 		end
 		puts daemon_json
 	else
+		Dir.mkdir("#{node['docker']['config']['directory']}") unless Dir.exist?("#{node['docker']['config']['directory']}")
 		daemon_json = {'insecure-registries'=>insecure_registries}
 	end
 
-	daemon_file = File.new("#{node['docker']['config']['daemon']}", "w")
+	daemon_file = File.open("#{node['docker']['config']['daemon']}", "w")
 	daemon_file.puts(JSON.pretty_generate(daemon_json))
 	daemon_file.close
 
