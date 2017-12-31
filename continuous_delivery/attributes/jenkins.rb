@@ -14,10 +14,14 @@ default['jenkins']['deploy'] = {
 
 #
 # directories
+default['jenkins']['directory']['jenkins-data'] = '/srv/docker/jenkins-data'
+default['jenkins']['directory']['jenkins-master'] = '/srv/docker/jenkins-master'
+default['jenkins']['directory']['ssh'] = '/srv/jenkins/.ssh'
+
 default['jenkins']['directory'] = {
-	'/srv/docker/jenkins-data' => {},
-	'/srv/docker/jenkins-master' => {},
-	'/srv/jenkins/.ssh' => {}
+	default['jenkins']['directory']['jenkins-data'] => {},
+	default['jenkins']['directory']['jenkins-master'] => {},
+	default['jenkins']['directory']['ssh'] => {}
 }
 
 #
@@ -25,7 +29,7 @@ default['jenkins']['directory'] = {
 default['jenkins']['files'] = {
 	'jenkins-data' => [
 		{
-			'file': '/srv/docker/jenkins-master/Dockerfile',
+			'file': '/srv/docker/jenkins-data/Dockerfile',
 			'source': 'jenkins/jenkins-data/Dockerfile',
 			'action': 'create'
 		}
