@@ -1,27 +1,18 @@
 # Continuous Integration / Continuous Delivery
-The goal of this environment is to provide a whole set of tools that should
+The intended audience of this article is anyone who are interested to deploy a simple environment for continuous integration or delivery, and to put in practices its principles.
+In case you would like to know or learn anything about continuous integration or delivery, go to [References](#references) section, which list some interesting links. The article does not treat these subjects.
 
+This environment aims to provide a set of components or tools which let you to put in practice how continuous delivery approach could improve software developement, automating the release process.
+The main components are Jenkins, used for task automation and orchestration; GitLab, as a source code management system; and finally, Docker Registry, where are pushed the new releases' images. But there are some other optional components.
 
-## Who should read this article
-
-This environment has been prepared using:
-- Vagrant version 1.8.7, with plugin vagrant-berkshelf 5.1.1
-- Vagrant is forced to use chef client version '12.20.3'
-- Vagrant box ubuntu/xenial64, version 20170730.0.0
+> Note: This environment has been thought for testing, learning or developing purposes, then is not recomended to use it on a productive environment.
 
 ## Deployment
-- Registry
-- Gitlab
-- Jenkins
-- Registry UI (opcional)
-- Portainer (opcional)
+The deployment of whole environment is done over Vagrant, using vagrant-berkshelf plugin and following the continuous_delivery cookbook, written specificaly for this purpose. You could read about continuous_delivery cookbook [here](docs/cookbook.md).
 
-Read about [cookbook](docs/cookbook.md)
+The cookbook installs Docker engine on the host, builds or pulls the required docker images locally and finally create a container for each component. Even more, all components have it own systemd service 
 
-## Configure Jenkins and Gitlab for continuous delivery
-
-## Testing the environment
-
+![design](docs/images/design.svg)
 
 ## References
 - [https://www.madetech.com/blog/continuous-delivery-with-jenkins](https://www.madetech.com/blog/continuous-delivery-with-jenkins)
