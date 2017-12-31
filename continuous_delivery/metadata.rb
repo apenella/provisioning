@@ -7,4 +7,4 @@ long_description 'Installs and configures a continuous delivery environment'
 version          '0.1.0'
 
 depends 'docker', '~> 2.0'
-depends 'jenkins', '~> 5.0.4'
+depends 'ssh_keygen', '~> 1.1.0'

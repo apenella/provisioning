@@ -2,5 +2,5 @@ source "https://supermarket.chef.io"
 
 metadata
 
-#cookbook 'nginx', '~> 2.4.4'
-cookbook 'jenkins', '~> 5.0.4'
+cookbook 'docker', '~> 2.0'
+cookbook 'ssh_keygen', '~> 1.1.0'
