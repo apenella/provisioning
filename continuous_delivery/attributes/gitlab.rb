@@ -10,6 +10,7 @@
 default['gitlab']['config']['external_url'] = 'http://localhost'
 default['gitlab']['config']['listen_port'] = 80
 default['gitlab']['config']['listen_https'] = false
+default['gitlab']['config']['ssh_port'] = 2222
 
 #
 # attributes for deployment node
@@ -64,7 +65,7 @@ default['gitlab']['docker']['container'] = {
 	'port': [
 		"80:80",
 		"443:443",
-		"2222:22"
+		"#{node['gitlab']['config']['ssh_port']}:22"
 	],
 	'action': 'create'
 }
