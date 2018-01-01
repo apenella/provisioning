@@ -7,7 +7,8 @@ The article does not treat continuous integration or delivery in depth. In case 
 > Note: This environment has been thought for testing, learning or developing purposes, then is not recomended to use it on a productive environment.
 
 ## Deployment
-The main components are Jenkins, used for task automation and orchestration; GitLab, as a source code management system; and finally, Docker Registry, where are pushed the new releases' images. But there are some other optional components, like Portainer or Registry UI.
+The main components are Jenkins, used for task automation and orchestration; GitLab, as a source code management system; and finally, Docker Registry, where are pushed the new releases' images. 
+There are some other optional components, like Portainer, to manage the Docker engine, or Registry UI, which helps to make the Docker Registry's management easier.
 
 The deployment of whole environment is done over Vagrant, using vagrant-berkshelf plugin and following the continuous_delivery cookbook, written specificaly for this purpose. You could read about continuous_delivery cookbook [here](docs/cookbook.md).
 
