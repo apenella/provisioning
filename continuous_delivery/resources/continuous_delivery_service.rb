@@ -18,7 +18,6 @@ default_action :deploy
 #
 # deploy: create and image and runs a container. Even more, creates a systemd service to manage that container
 action :deploy do
-
 	#
 	# create files
 	if !new_resource.files.empty? then

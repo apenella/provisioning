@@ -13,6 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.define 'cd' do |env|
 		env.vm.hostname = 'cd'
 		env.vm.box = 'ubuntu/xenial64'
+		#env.vm.box = 'centos/7'
 		env.vm.network 'private_network', ip: "#{$SERVER_IP}"
 
 		env.vm.provider 'virtualbox' do |vb|
@@ -29,7 +30,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 				:continuous_delivery => {
 					:service => {
 						:portainer => false,
-						:registry_ui => true
+						:registry_ui => false
 					}
 				},
 				:jenkins => {
@@ -40,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 				},
 				:gitlab => {
 					:deploy => {
-						'clear': true
+						'clear': false
 					},
 					:config => {
 						:external_url => "http://#{$SERVER_IP}"	
@@ -70,7 +71,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 				},
 				:elk => {
 					:deploy => {
-						:clear => true
+						:clear => false
 					}
 				}
 			}
