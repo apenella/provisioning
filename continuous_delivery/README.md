@@ -1,18 +1,31 @@
 # Continuous Integration / Continuous Delivery
-The intended audience of this article is anyone who are interested to deploy a simple environment for continuous integration or delivery, and to put in practices its principles.
-In case you would like to know or learn anything about continuous integration or delivery, go to [References](#references) section, which list some interesting links. The article does not treat these subjects.
-
 This environment aims to provide a set of components or tools which let you to put in practice how continuous delivery approach could improve software developement, automating the release process.
-The main components are Jenkins, used for task automation and orchestration; GitLab, as a source code management system; and finally, Docker Registry, where are pushed the new releases' images. But there are some other optional components.
+
+The intended audience of this article is anyone interested in to have a basic environment to put in practice the continuous integration or delivery principles.
+The article does not treat continuous integration or delivery in depth. In case you would like to know or learn anything about on these subjects, go to [references](#references) section which lists some interesting links.
 
 > Note: This environment has been thought for testing, learning or developing purposes, then is not recomended to use it on a productive environment.
 
 ## Deployment
+The main components are Jenkins, used for task automation and orchestration; GitLab, as a source code management system; and finally, Docker Registry, where are pushed the new releases' images. But there are some other optional components, like Portainer or Registry UI.
+
 The deployment of whole environment is done over Vagrant, using vagrant-berkshelf plugin and following the continuous_delivery cookbook, written specificaly for this purpose. You could read about continuous_delivery cookbook [here](docs/cookbook.md).
 
-The cookbook installs Docker engine on the host, builds or pulls the required docker images locally and finally create a container for each component. Even more, all components have it own systemd service 
+The environmnet has an easy deployment, you have to run ``` vagrant up ``` for the environemnt to be running.
+The cookbook installs Docker engine on the host. Over Docker engine are built or pulled the required docker images and is created a container for each component. To manage the components separetely, a systemd servicie is created for each one.
 
+Once every component is running, the environment looks like as the scheme below.
 ![design](docs/images/design.png)
+
+## Use Case
+The common use case will be described using the above scheme.
+1. Developement team pushes a new feature on GitLab.
+2. Gitlab triggers a Jenkins job execution.
+3. The Jenkins job is a pipeline that tests and builds a new release of the application.
+4. A new docker image for this release is created and pushed to Docker Registry.
+5. The image ready to be deployed.
+6. Once the new release is used by user, developement team could have a feedback about new feature.
+7. Developement team has been always working on new features or changes.
 
 ## References
 - [https://www.madetech.com/blog/continuous-delivery-with-jenkins](https://www.madetech.com/blog/continuous-delivery-with-jenkins)
