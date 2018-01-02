@@ -13,8 +13,6 @@ node['config']['users'].each do |u, data|
 		if data.has_key?('system') then system data.system end
 		if data.has_key?('shell') then shell "#{data.shell}" end
 		if data.has_key?('home') then
-			puts ">> #{data.home}"
-			puts ">> #{node['jenkins']}"
 			Dir.mkdir("#{data.home}") unless Dir.exist?("#{data.home}")
 			home "#{data.home}" 
 		end
@@ -43,27 +41,3 @@ node['config']['users'].each do |u, data|
 		end
 	end
 end
-
-#
-# User Jenkins
-#
-# user 'jenkins' do
-#   	group 'jenkins'
-#   	home  '/srv/jenkins'
-#   	system true
-#   	notifies :create, "ssh_keygen[#{node['jenkins']['directory']['ssh']}/id_rsa]",:immediately
-# end
-
-# ssh_keygen "#{node['jenkins']['directory']['ssh']}/id_rsa" do
-# 	action :create
-# 	strength 4096
-# 	type 'rsa'
-# 	secure_directory true
-# end
-
-# create groups
-# node['config']['groups'].each do |g, info|
-# 	group g do
-# 		members info.members
-# 	end
-# end
