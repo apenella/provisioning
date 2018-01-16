@@ -11,9 +11,9 @@ default['registry']['deploy']['clear'] = false
 
 #
 # systemd service definition
-default['registry']['service'] = 'registry'
+# default['registry']['service'] = 'registry'
 default['registry']['systemd'] = {
-	'name': node['registry']['service'],
+	'name': node['continuous_delivery']['service']['registry'],
 	'description': 'Service for private docker registry',
 	'requires': node['docker']['service'],
 	'after': node['docker']['service']
@@ -38,7 +38,7 @@ default['registry']['docker']['image'] = {
 #
 # docker containers
 default['registry']['docker']['container'] = {
-	'name': "#{node['registry']['service']}",
+	'name': "#{node['continuous_delivery']['service']['registry']}",
 	'repo': "#{node['registry']['docker']['image'].name}",
 	'tag': "#{node['registry']['docker']['image'].tag}",
 	'port': "5000:#{node['registry']['config']['port']}",

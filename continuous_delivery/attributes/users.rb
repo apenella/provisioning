@@ -6,22 +6,41 @@
 #
 
 #
+# groups
+default['groups']['config'] = {
+	node['continuous_delivery']['group']['developers'] => {
+		'group_name' => node['continuous_delivery']['group']['developers'],
+		'system' => true,
+		'action' => 'create'
+	},
+	node['continuous_delivery']['group']['docker'] => {
+		'group_name' => node['continuous_delivery']['group']['developers'],
+		'system' => true,
+		'action' => 'create'
+	}
+}
+
+#
 # users
-default['config']['users'] = {
-	'devops' => {
+#default['users']['user']['devops'] = 'devops'
+#default['users']['user']['developer'] = 'developer'
+#default['users']['user']['jenkins'] = 'jenkins'
+default['users']['config'] = {
+	node['continuous_delivery']['user']['devops'] => {
 		'ssh' => true,
+		'home' => "/devops",
 		'shell'	=> '/bin/bash',
 		'system' => true,
-		'groups' => [node['docker']['config']['group']]
+		'groups' => [node['continuous_delivery']['group']['developers'], node['continuous_delivery']['group']['docker']]
 	},
-	'developer' => {
+	node['continuous_delivery']['user']['developer'] => {
 		'ssh' => true,
 		'home' => "/developements",
 		'shell'	=> '/bin/bash',
 		'system' => true,
-		'groups' => [node['docker']['config']['group']]
+		'groups' => [node['continuous_delivery']['group']['developers'], node['continuous_delivery']['group']['docker']]
 	},
-	'jenkins' => {
+	node['continuous_delivery']['user']['jenkins'] => {
 		'ssh' => true,
 		'home' => node['jenkins']['base_dir'],
 		'shell'	=> '/bin/bash',

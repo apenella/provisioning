@@ -8,7 +8,7 @@
 #
 # clear service
 if node['registry']['deploy']['clear'] then
-	continuous_delivery_service "Clear #{node['registry']['service']}" do
+	continuous_delivery_service "Clear #{node['registry']['systemd'].name}" do
 		image node['registry']['docker']['image']
 		container node['registry']['docker']['container']
 		systemd_service node['registry']['systemd']
@@ -18,7 +18,7 @@ end
 
 #
 # deploy service
-continuous_delivery_service node['registry']['service'] do
+continuous_delivery_service node['registry']['systemd'].name do
 	image node['registry']['docker']['image']
 	container node['registry']['docker']['container']
 	systemd_service node['registry']['systemd']

@@ -26,8 +26,7 @@ end
 #
 # clear service
 if node['gitlab']['deploy']['clear'] then
-	continuous_delivery_service "Clear #{node['gitlab']['service']}" do
-		#image node['gitlab']['docker']['image']
+	continuous_delivery_service "Clear #{node['gitlab']['systemd'].name}" do
 		container node['gitlab']['docker']['container']
 		systemd_service node['gitlab']['systemd']
 		action :clear
@@ -36,7 +35,7 @@ end
 
 #
 # deploy service
-continuous_delivery_service node['gitlab']['service'] do
+continuous_delivery_service node['gitlab']['systemd'].name do
 	image node['gitlab']['docker']['image']
 	container node['gitlab']['docker']['container']
 	systemd_service node['gitlab']['systemd']
@@ -56,6 +55,6 @@ end
 
 #
 # Gitlab service
-service node['gitlab']['service'] do
+service node['gitlab']['systemd'].name do
 	action :restart
 end

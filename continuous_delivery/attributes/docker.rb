@@ -8,9 +8,9 @@
 #
 #
 # Docker configuration
-default['docker']['service'] = 'docker'
+# default['docker']['service'] = 'docker'
 
-default['docker']['config']['group'] = 'docker'
+#default['docker']['config']['group'] = 'docker'
 default['docker']['config']['directory'] = '/etc/docker'
 default['docker']['config']['daemon'] = '/etc/docker/daemon.json'
 default['docker']['config']['registry'] = [

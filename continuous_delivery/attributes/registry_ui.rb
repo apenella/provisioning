@@ -11,12 +11,12 @@ default['registry_ui']['deploy']['clear'] = false
 
 #
 # systemd service definition
-default['registry_ui']['service'] = 'registry-ui'
+# default['registry_ui']['service'] = 'registry-ui'
 default['registry_ui']['systemd'] = {
-	'name': node['registry_ui']['service'],
+	'name': node['continuous_delivery']['service']['registry_ui'],
 	'description': 'Registry UI service gives to user a way to manage its private docker registry',
-	'requires': node['registry']['service'],
-	'after': node['registry']['service']
+	'requires': node['continuous_delivery']['service']['registry'],
+	'after': node['continuous_delivery']['service']['registry']
 }
 
 #
@@ -34,7 +34,7 @@ default['registry_ui']['docker']['image'] = {
 #
 # docker containers
 default['registry_ui']['docker']['container'] = {
-	'name': 'registry-ui',
+	'name': "#{node['continuous_delivery']['service']['registry_ui']}",
 	'repo': "#{node['registry_ui']['docker']['image'].name}",
 	'tag': "#{node['registry_ui']['docker']['image'].tag}",
 	'port': '5080:80',

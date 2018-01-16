@@ -56,12 +56,12 @@ default['jenkins']['files'] = {
 
 #
 # systemd service definition
-default['jenkins']['service'] = 'jenkins'
+# default['jenkins']['service'] = 'jenkins'
 default['jenkins']['systemd'] = {
-	'name': node['jenkins']['service'],
+	'name': node['continuous_delivery']['service']['jenkins'],
 	'description': 'Jenkins service',
-	'requires': node['docker']['service'],
-	'after': node['docker']['service']
+	'requires': node['continuous_delivery']['service']['docker'],
+	'after': node['continuous_delivery']['service']['docker']
 }
 
 #

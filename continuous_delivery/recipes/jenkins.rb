@@ -25,7 +25,7 @@ end
 #
 # clear service
 if node['jenkins']['deploy']['jenkins-data']['clear'] then
-	continuous_delivery_service "Clear jenkins-data" do
+	continuous_delivery_service "Clear #{node['jenkins']['docker']['image']['jenkins-data'].name}" do
 		image node['jenkins']['docker']['image']['jenkins-data']
 		container node['jenkins']['docker']['container']['jenkins-data']
 		files node['jenkins']['files']['jenkins-data']
@@ -48,7 +48,7 @@ end
 #
 # clear service
 if node['jenkins']['deploy']['jenkins-master']['clear'] then
-	continuous_delivery_service "Clear jenkins-master" do
+	continuous_delivery_service "Clear #{node['jenkins']['systemd'].name}" do
 		image node['jenkins']['docker']['image']['jenkins-master']
 		container node['jenkins']['docker']['container']['jenkins-master']
 		files node['jenkins']['files']['jenkins-master']
@@ -59,7 +59,7 @@ end
 
 #
 # deploy service
-continuous_delivery_service node['jenkins']['docker']['image']['jenkins-master'].name do
+continuous_delivery_service node['jenkins']['systemd'].name do
 	image node['jenkins']['docker']['image']['jenkins-master']
 	container node['jenkins']['docker']['container']['jenkins-master']
 	files node['jenkins']['files']['jenkins-master']
@@ -84,6 +84,6 @@ end
 
 #
 # jenkins-master service
-service node['jenkins']['service'] do
+service node['jenkins']['systemd'].name do
 	action :restart
 end

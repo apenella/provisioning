@@ -7,7 +7,8 @@
 require 'json'
 
 docker_service 'default' do
-	group node['docker']['config']['group']
+	#group node['docker']['config']['group']
+	group node['continuous_delivery']['group']['docker']
 	action [:create, :start]
 end
 
@@ -52,7 +53,7 @@ if insecure_registries.length > 0
 
 	#
 	# docker service restart
-	service "#{node['docker']['service']}" do
+	service "#{node['continuous_delivery']['service']['docker']}" do
 		action :restart
 	end
 end

@@ -5,8 +5,17 @@
 # 2017 Aleix Penella
 #
 
+# create groups
+node['groups']['config'].each do |g,data|
+	group g do
+		if data.has_key?('group_nmae') then group_name data.group_name end
+		if data.has_key?('system') then system data.system end
+		if data.has_key?('action') then action "#{data.action}" end
+	end
+end
+
 # create users
-node['config']['users'].each do |u, data|
+node['users']['config'].each do |u, data|
 	
 	user u do
 		if data.has_key?('password') then password "#{data.password}" end
@@ -23,6 +32,7 @@ node['config']['users'].each do |u, data|
 	if data.has_key?('groups') then
 		data.groups.each do |g|
 			group "#{u}_#{g}" do
+				group_name g
 				append true
 				members u
 				action :modify

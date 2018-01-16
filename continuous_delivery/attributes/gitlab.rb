@@ -36,12 +36,12 @@ default['gitlab']['files'] = [
 
 #
 # systemd service definition
-default['gitlab']['service'] = 'gitlab'
+# default['gitlab']['service'] = 'gitlab'
 default['gitlab']['systemd'] = {
-	'name': node['gitlab']['service'],
+	'name': node['continuous_delivery']['service']['gitlab'],
 	'description': 'gitlab service',
-	'requires': node['docker']['service'],
-	'after': node['docker']['service']
+	'requires': node['continuous_delivery']['service']['docker'],
+	'after': node['continuous_delivery']['service']['docker']
 }
 
 #
