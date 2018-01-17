@@ -11,7 +11,6 @@ default['portainer']['deploy']['clear'] = false
 
 #
 # systemd service definition
-# default['portainer']['service'] = 'portainer'
 default['portainer']['systemd'] = {
 	'name': node['continuous_delivery']['service']['portainer'],
 	'description': 'Portainer service manages docker host or swarm cluster',

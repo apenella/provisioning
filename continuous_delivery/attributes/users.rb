@@ -22,9 +22,6 @@ default['groups']['config'] = {
 
 #
 # users
-#default['users']['user']['devops'] = 'devops'
-#default['users']['user']['developer'] = 'developer'
-#default['users']['user']['jenkins'] = 'jenkins'
 default['users']['config'] = {
 	node['continuous_delivery']['user']['devops'] => {
 		'ssh' => true,

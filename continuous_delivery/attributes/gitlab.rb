@@ -36,7 +36,6 @@ default['gitlab']['files'] = [
 
 #
 # systemd service definition
-# default['gitlab']['service'] = 'gitlab'
 default['gitlab']['systemd'] = {
 	'name': node['continuous_delivery']['service']['gitlab'],
 	'description': 'gitlab service',

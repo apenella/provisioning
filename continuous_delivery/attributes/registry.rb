@@ -11,12 +11,11 @@ default['registry']['deploy']['clear'] = false
 
 #
 # systemd service definition
-# default['registry']['service'] = 'registry'
 default['registry']['systemd'] = {
 	'name': node['continuous_delivery']['service']['registry'],
 	'description': 'Service for private docker registry',
-	'requires': node['docker']['service'],
-	'after': node['docker']['service']
+	'requires': node['continuous_delivery']['service']['docker'],
+	'after': node['continuous_delivery']['service']['docker']
 }
 
 #

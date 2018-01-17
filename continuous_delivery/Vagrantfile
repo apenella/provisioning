@@ -5,8 +5,8 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-	config.berkshelf.enabled = true	
-	#config.omnibus.chef_version = '12.20.3'
+	config.berkshelf.enabled = true
+	config.omnibus.chef_version = '12.20.3'
 
 	$SERVER_IP = "10.0.0.5"	
 
@@ -28,7 +28,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 			chef.json = {
 				:continuous_delivery => {
-					:service => {
+					:deploy => {
 						:portainer => false,
 						:registry_ui => false
 					}

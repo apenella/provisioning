@@ -56,7 +56,6 @@ default['jenkins']['files'] = {
 
 #
 # systemd service definition
-# default['jenkins']['service'] = 'jenkins'
 default['jenkins']['systemd'] = {
 	'name': node['continuous_delivery']['service']['jenkins'],
 	'description': 'Jenkins service',

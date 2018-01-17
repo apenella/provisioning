@@ -7,7 +7,6 @@
 require 'json'
 
 docker_service 'default' do
-	#group node['docker']['config']['group']
 	group node['continuous_delivery']['group']['docker']
 	action [:create, :start]
 end

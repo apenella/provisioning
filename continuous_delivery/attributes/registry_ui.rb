@@ -11,7 +11,6 @@ default['registry_ui']['deploy']['clear'] = false
 
 #
 # systemd service definition
-# default['registry_ui']['service'] = 'registry-ui'
 default['registry_ui']['systemd'] = {
 	'name': node['continuous_delivery']['service']['registry_ui'],
 	'description': 'Registry UI service gives to user a way to manage its private docker registry',
