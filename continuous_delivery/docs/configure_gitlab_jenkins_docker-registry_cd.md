@@ -16,22 +16,22 @@ We will start configuring Gitlab, which is used for source code management. Gitl
 
 1. When the environment is already provisioned, Gitlab is published at http://10.0.0.5. Go there.
 2. First, `root`'s password have to be changed. By default, `root`'s password is `5iveL!fe`.
-![first_login](docs/images/gitlab_first_login.png)
+![first_login](images/gitlab_first_login.png)
 
 3. Next, everything is ready to sign in to Gitlab.
-![welcome_gitlab](docs/images/gitlab_welcome.png)
+![welcome_gitlab](images/gitlab_welcome.png)
 
 4. Its time to create a group with private visibility, named `continuousdelivery`. The article will work all the time using the recetly created group.
-![create_group](docs/images/gitlab_create_group_1.png)
+![create_group](images/gitlab_create_group_1.png)
 
 5. Under this group, create a new project. The project will be named `simple-go-helloworld` and leave the repository empty, by now.
-![create_project](docs/images/gitlab_create_project_1.png)
+![create_project](images/gitlab_create_project_1.png)
 
 6. Create `developer`, `devops` and `jenkins` users. To do that, go to administration area and create the users.
-![admin_area](docs/images/gitlab_admin_area_1.png)
+![admin_area](images/gitlab_admin_area_1.png)
 
 7. Configure access to `continuousdelivery` group for new users. Set user `developer` as `Manager`, `devops` as `Owner` and `jenkins` as `Guest`.
-![create_user_account](docs/gitlab_group_members_1.png)
+![create_user_account](gitlab_group_members_1.png)
 
 8. Following with user configuration, next step is to add the SSH keys to each user. These keys will let user to perform passwordless actions, like push code to repositories.
 Then, sign in to Gitlab as `developer` user and go to `SSH Keys`, on `User Setting` configuration. Now is required a key pair for this user. 
@@ -46,7 +46,7 @@ developer@cd:~$
 ```
 
 Once you save it, the public key is already configured.
-![user_ssh_key](docs/gitlab_user_ssh_key.png)
+![user_ssh_key](images/gitlab_user_ssh_key.png)
 
 You could test the SSH configuration executing an ssh command as below. If SSH was copied properly you will receive a *Welcome to Gitlab* message.
 ```shell
@@ -91,7 +91,7 @@ To ssh://git@10.0.0.5:2222/continuousdelivery/simple-go-helloworld.git
 developer@cd:~/simple-go-helloworld$ 
 ```
 
-![gitlab_initial_commit](docs/images/gitlab_initial_commit.png)
+![gitlab_initial_commit](images/gitlab_initial_commit.png)
 
 At this point we have already met the first objective: Developement team could push new features at Gitlab.
 
@@ -100,15 +100,15 @@ Let's continue our configuration with Jenkins component.
 Jenkins is the engine that orchestrates and automates the actions between user and the other components, connects the developements with the operation side.
 
 1. When the environment is already provisioned, Jenkins is published at http://10.0.0.5:8080. You will note that Jenkins' security is disabled and no user authentication is required. 
-![first_login](docs/images/jenkins_first_login.png)
+![first_login](images/jenkins_first_login.png)
 
 2. First, you will create a Jenkins credential to sign in to Gitlab. If you remmember, `continuousdelivery` is a Gitlab private group then, to perform any action with its repositories you must be an authorized user. Jenkins is going to be configured to sign in to Gitlab using `jenkins` user, that is this user's purpose.
 
 To create a credential, open `Credential` management on jenkins.
-![credentials](docs/images/jenkins_create_credential_1.png)
+![credentials](images/jenkins_create_credential_1.png)
 
 And then select `Add credential`
-![credentials](docs/images/jenkins_create_credential_2.png)
+![credentials](images/jenkins_create_credential_2.png)
 
 Now you must fulfill the form to create a `SSH Username with private key` credential. On that form, must be copied the jenkins user's `id_rsa` file content, located at `/srv/jenkins/.ssh`, as a direct entry private key. That file contains the `jenkins` user private key.
 
@@ -123,7 +123,7 @@ drwxr-xr-x 3 root    root    4096 Dec 30 18:40 ..
 -rw------- 1 jenkins jenkins  736 Jan  1 19:31 id_rsa.pub
 ```
 
-![credentials](docs/images/jenkins_create_credential_3.png)
+![credentials](images/jenkins_create_credential_3.png)
 
 4. Create Jenkins Job
 // TODO
