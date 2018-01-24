@@ -31,7 +31,7 @@ We will start configuring Gitlab, which is used for source code management. Gitl
 ![admin_area](images/gitlab_admin_area_1.png)
 
 7. Configure access to `continuousdelivery` group for new users. Set user `developer` as `Manager`, `devops` as `Owner` and `jenkins` as `Guest`.
-![create_user_account](gitlab_group_members_1.png)
+![create_user_account](images/gitlab_group_members_1.png)
 
 8. Following with user configuration, next step is to add the SSH keys to each user. These keys will let user to perform passwordless actions, like push code to repositories.
 Then, sign in to Gitlab as `developer` user and go to `SSH Keys`, on `User Setting` configuration. Now is required a key pair for this user. 
