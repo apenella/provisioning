@@ -5,6 +5,9 @@ At the begining I prepared the environments in order to skip the tedious tasks o
 
 ## Environments
 - [Continuous Integration / Continuous Delivery](continuous_delivery/README.md)
+  **Related docuements**
+  - [Configure Gitlab, Jenkins and Docker registry for continuous deliver](continuous_delivery/docs/configure_gitlab_jenkins_docker-registry_cd.md)
+  - [Continuous_delivery cookbook](continuous_delivery/docs/cookbook.md)
 - [Mesos-marathon](mesos-marathon/README.md)
 
 ## Author
