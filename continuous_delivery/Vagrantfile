@@ -8,6 +8,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.berkshelf.enabled = true
 	config.omnibus.chef_version = '12.20.3'
 
+	if Vagrant.has_plugin? "vagrant-vbguest"
+		config.vbguest.no_install  = true
+		config.vbguest.auto_update = false
+		config.vbguest.no_remote   = true
+	end
+
 	$SERVER_IP = "10.0.0.5"	
 
 	config.vm.define 'cd' do |env|
@@ -18,7 +24,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 		env.vm.provider 'virtualbox' do |vb|
 			vb.name = 'continuousdelivery'
-			vb.memory = 4096
+			vb.memory = 5120
 			vb.cpus = 2
 		end
 
