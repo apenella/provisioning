@@ -6,6 +6,12 @@
 #
 require 'json'
 
+docker_installation_package 'default' do
+  package_name node['docker']['package']['name'] 
+  version node['docker']['package']['version'] 
+  action :create
+end
+
 docker_service 'default' do
 	group node['continuous_delivery']['group']['docker']
 	action [:create, :start]

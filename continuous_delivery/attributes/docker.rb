@@ -19,3 +19,5 @@ default['docker']['config']['registry'] = [
 		'registry': "#{node['registry']['config']['host']}:#{node['registry']['config']['port']}"
 	}
 ]
+default['docker']['package']['name'] = 'docker-ce'
+default['docker']['package']['version'] = '17.09.0'
