@@ -160,7 +160,7 @@ You could check deployed release's image on Registry UI (crane operator).
 
 When you are arribed at this point it means that developement team could pushes new commits to Gitlab and new releases could be build and deployed to Docker registry from Jenkins. To round our work and achive this article objectives we still require one more thing, to automate the release deployment after a new release is pushed to Gitlab.
 
-## Connect Gilab to Jenkins
+## Connect Gitlab and Jenkins
 As I said before, we doesn't accomplish all the objectives defined at the beging of this article.
 The objectives were:
 1. Developement team pushes a new feature on GitLab.
@@ -199,7 +199,7 @@ Its possible to test the configured webhook from Gitlab's integration settings.
 ![gitlab_integration](images/gitlab_integration_4.png)
 
 You could check the deployed image result staring a container which uses this image.
-Yo```shell
+```shell
 developer@cd:~$ docker run --rm -p 8081:80 10.0.0.5:5000/simple-go-helloworld:latest
 ```
 ![continuousdelivery_deploy.png](images/continuousdelivery_deploy_1.png)
