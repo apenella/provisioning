@@ -42,7 +42,6 @@ default['registry']['docker']['container'] = {
 	'tag': "#{node['registry']['docker']['image'].tag}",
 	'port': "5000:#{node['registry']['config']['port']}",
 	'env': [
-		"REGISTRY_HOST=#{node['registry']['config']['host']}",
 		"REGISTRY_STORAGE_DELETE_ENABLED=true"
 	],
 	'action': 'create'
