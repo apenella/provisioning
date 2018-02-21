@@ -49,6 +49,7 @@ developer@cd:~$
 ```  
 
    Once you save it, the public key is already configured, and you could push new commits to Gitlab using `developer` user.  
+
 ![user_ssh_key](images/gitlab_user_ssh_key.png)
 
    It is possible to test the SSH configuration executing an ssh command as below. If public key was copied properly you will receive a *Welcome to Gitlab* message.
