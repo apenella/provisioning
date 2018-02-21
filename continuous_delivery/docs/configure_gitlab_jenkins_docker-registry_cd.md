@@ -41,7 +41,8 @@ We will start configuring Gitlab, which is our solution source code management.
    Copy user public key file `~/.ssh/id_rsa.pub` content to Gitlab SSH Key. 
 
    The content could be extracted as below.
-   ```shell
+
+```shell
 developer@cd:~$ cat .ssh/id_rsa.pub 
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/HUC1L0z1ROyE6jqPWJrM3EnYUciD9zr0S4dBYShb4MXAKB7lBbPmyp6M+Iub9c85zRmSHtZUxNBzVBFRfAxv2USMwRo7K1gIQWmAN2sBrsYfKBSv+Sty2d32p/xoTmK+tuAPqeYIkQAcRAVH6N3zxSutf4LWOIHH7SqYpZfGpvWUl8yNxhS0Xni8armmcE7ez5sH4sGgJC27JPxGM2Fz8YGWriHXcYTDK+wBmVLYsibeSar/cL1y6f6a7ycWir87MQLmUj+YnEooikkTiQUP6Hh5zsTmXstgK0+DLAtM2af3D3Q2kZJ5AVHKijP+yeUY5FtrxBJJUphQZhTPhdPzIzVPoRQ2b0Y+DtIKR4oHy9az7bVh/ZPJw1N0oo5VdBO4VVhsWm4gR9r9Ktdtj3cXoNnW+aQ2GPjsTzl1sI/YtsJD7TcBtxSSsLNiWIfs+QJPc96taDaq7TAPMYAcRfuPoUKh5F6Q9tswdFgK0dmV0HOayxBIbN6qqXRMqVcvuPijNkeO7b4CwOMquNRjBeoBt1M9C+TtefHEazVsQ/U/QaX0EKrINkLvgz859+5z4ZODvunty1nX26mZP5l21AWAVm3VcTWe6+7Zpio4+L/k/EY8WQZghMjOvkikj9oSw2rfVo8Ni4ibna6YdBZrPXko9eAh111a8Yx188aEh3dhEw== developer@cd
 developer@cd:~$
@@ -51,7 +52,8 @@ developer@cd:~$
 ![user_ssh_key](images/gitlab_user_ssh_key.png)
 
    It is possible to test the SSH configuration executing an ssh command as below. If public key was copied properly you will receive a *Welcome to Gitlab* message.
-   ```shell
+
+```shell
 developer@cd:~/simple-go-helloworld$ ssh -T git@10.0.0.5 -p 2222
 Welcome to GitLab, developer!
 ```
@@ -63,7 +65,8 @@ Welcome to GitLab, developer!
 
    Before push any code, start a new terminal at working host, change to `developer` user, go to `/developements/simple-go-helloworld` directory, and initialize a git repository there.
    You could do that following next commands below.
-   ```shell
+
+```shell
 ubuntu@cd:~$ sudo su developer
 developer@cd:/home/ubuntu$ cd /developements/simple-go-helloworld/
 developer@cd:~/simple-go-helloworld$ git init
@@ -71,13 +74,15 @@ Initialized empty Git repository in /developements/simple-go-helloworld/.git/
 ```
 
    When workspace is initialized, now you should set up user configuration for git as below.
-   ```shell
+
+```shell
 developer@cd:~/simple-go-helloworld$ git config --global user.email "developer@continuousdelivery.learn"
 developer@cd:~/simple-go-helloworld$ git config --global user.name "Developer"
 ```
 
    Finally, the current workspace should be associated to Gitlab's repository adding it as a remote.
-   ```shell
+
+```shell
 git remote add origin ssh://git@10.0.0.5:2222/continuousdelivery/simple-go-helloworld.git
 git add README.md
 git commit -m "Initial commit"
@@ -87,7 +92,8 @@ git commit -m "Initial commit"
    Although Gitlab is configured to listen to ssh service at port 22, the remote is added using port 2222 to avoid port conflicts with host. The `add remote` command is working because Docker redirects connections from host's port 2222 to Gitlab's container port 22.
 
    Once this tricky redirecton is understood, you are ready to push committed code at Gitlab.
-   ```shell
+
+```shell
 developer@cd:~/simple-go-helloworld$ git push origin master
 Counting objects: 3, done.
 Delta compression using up to 2 threads.
@@ -121,7 +127,7 @@ Jenkins is the engine that automates user actions, connecting developements with
    Now you must fulfill the form to create a `SSH Username with private key` credential. On that form, must be copied host's jenkins user `id_rsa` file content, located at `/srv/jenkins/.ssh` to Jenkins credential. This file contains host's jenkins user private key. Jenkins credential will be set as a direct entry private key.
    As it was explained before, during the environment deployment there was created a set of users, and those users have its own key pairs.
 
-   ```shell
+```shell
 jenkins@cd:~/.ssh$ pwd
 /srv/jenkins/.ssh
 jenkins@cd:~/.ssh$ ls -la
@@ -181,10 +187,10 @@ We will do that using the `Generic Webhook trigger` Jenkins's plugin.
 
    When `Generic Webhook trigger` parameter is already configured, Jenkins' job could be started using next url: `http://10.0.0.5:8080/generic-webhook-trigger/invoke?job=simple-go-helloworld`
 
-   ```shell
+```shell
 developer@cd:~$ curl http://10.0.0.5:8080/generic-webhook-trigger/invoke?job=simple-go-helloworld
 {"status":"ok","data":{"triggerResults":{"simple-go-helloworld":{"id":2,"regexpFilterExpression":"","regexpFilterText":"","resolvedVariables":{"job":"","job_0":""},"searchName":"API","searchUrl":"api","triggered":true,"url":"queue/item/2/"}}}}
-``` 
+```
 
 2. Configure Gitlab's integration trigger.
    To configure Gitlab to start Jenkins' `simple-go-helloworld` job after a push to `simple-go-helloworld` repository, sign in to Gitlab and go to repository settings. You could sign in as `developer`user.
@@ -202,9 +208,11 @@ developer@cd:~$ curl http://10.0.0.5:8080/generic-webhook-trigger/invoke?job=sim
 ![gitlab_integration](images/gitlab_integration_4.png)
 
    You could check the deployed image result staring a container which uses this image.
-   ```shell
+
+```shell
 developer@cd:~$ docker run --rm -p 8081:80 10.0.0.5:5000/simple-go-helloworld:latest
 ```
+
    The result of running our new application could be seen below.
 ![continuousdelivery_deploy.png](images/continuousdelivery_deploy_1.png)
 
@@ -213,7 +221,7 @@ At this point we have achived our article objective but let's putting all togeth
 
 1. To do that, we will modify our `main.go` file, changing the background message color, and then push changes to Gitlab.
 
-   ```shell
+```shell
 developer@cd:~/simple-go-helloworld$ git add main.go 
 developer@cd:~/simple-go-helloworld$ git commit -m "Changed background message color"
 [master dbd001b] Changed background message color
@@ -236,7 +244,8 @@ developer@cd:~/simple-go-helloworld$
 ![continuousdelivery_deploy.png](images/continuousdelivery_deploy_3.png)
 
 4. When you start a new container, using the latest `simple-go-helloworld` image, you could see the lastest release of our application in your browser, at `http://10.0.0.5:8081`.
-   ```shell
+
+```shell
 developer@cd:~$ docker run --rm -p 8081:80 10.0.0.5:5000/simple-go-helloworld:latest
 ```
 
