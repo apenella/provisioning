@@ -48,6 +48,9 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/HUC1L0z1ROyE6jqPWJrM3EnYUciD9zr0S4dBYShb
 developer@cd:~$
 ```  
 
+   The content could be extracted as below.  
+
+
    Once you save it, the public key is already configured, and you could push new commits to Gitlab using `developer` user.  
 
 ![user_ssh_key](images/gitlab_user_ssh_key.png)
