@@ -34,13 +34,13 @@ We will start configuring Gitlab, which is our solution source code management.
 7. Configure access to `continuousdelivery` group for each recently created user. Set user `developer` as `Master`, `devops` as `Owner` and `jenkins` as `Developer`.
 ![create_user_account](images/gitlab_group_members_1.png)
 
-8. Following with users configuration, next step is to add the SSH keys to user. These keys will let user to perform passwordless actions, like push commits to repositories.
+8. Following with users configuration, next step is to add the SSH keys to user. Those keys will let user to perform passwordless actions, like push commits to repositories.
    Sign in to Gitlab as `developer` user and go to `SSH Keys`, on `User Setting` configuration. Now you requires a key pair for this user.
    When the environment creation, host is provided with same users as we created at Gitlab and each user has its own SSH key pair located at `~/.ssh` directory. Use those keys.
 
-   Copy user public key file `~/.ssh/id_rsa.pub` content to Gitlab SSH Key. 
+   Copy user public key file `~/.ssh/id_rsa.pub` content to Gitlab SSH Key.  
 
-   The content could be extracted as below.
+   The content could be extracted as below.  
 
 ```shell
 developer@cd:~$ cat .ssh/id_rsa.pub 
@@ -48,7 +48,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/HUC1L0z1ROyE6jqPWJrM3EnYUciD9zr0S4dBYShb
 developer@cd:~$
 ```
 
-   Once you save it, the public key is already configured, and you could push new commits to Gitlab using `developer` user.
+   Once you save it, the public key is already configured, and you could push new commits to Gitlab using `developer` user.  
 ![user_ssh_key](images/gitlab_user_ssh_key.png)
 
    It is possible to test the SSH configuration executing an ssh command as below. If public key was copied properly you will receive a *Welcome to Gitlab* message.
