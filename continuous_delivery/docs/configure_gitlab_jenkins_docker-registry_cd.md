@@ -157,6 +157,8 @@ drwxr-xr-x 3 root    root    4096 Dec 30 18:40 ..
    To use repository's `Jenkinsfile`, pipeline definition must be set as `Pipeline script from SCM`. This configuration requires a git repository, and here must set our Gitlab's repository url: `ssh://git@10.0.0.5:2222/continuousdelivery/simple-go-helloworld.git`. Gitlab's jenkins user credentials, created before, must be also set up to get in our repository.
 ![jenkins_create_job](images/jenkins_create_job_4.png)
 
+> You could take a look of `Jenkinsfile` [here](https://github.com/apenella/provisioning/blob/master/continuous_delivery/files/default/test/simple-go-helloworld/Jenkinsfile).
+
    At this moment, everything is ready to build the jenkins project. Before run this job, Jenkins will ask for to set defined parameters. Keep DOCKER_REGISTRY parameter value as default.
 ![jenkins_create_job](images/jenkins_create_job_5.png)
 
