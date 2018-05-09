@@ -1,0 +1,9 @@
+---
+
+- name: "Install {{ package }}"
+  apt:
+    name: "{{ package }}"
+    state: present
+    update_cache: yes
+  tags:
+    - packages

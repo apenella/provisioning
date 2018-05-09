@@ -1,0 +1,7 @@
+packages:
+  - curl
+  - git
+  - nmon
+  - parallel
+  - tmux
+  - virtualbox

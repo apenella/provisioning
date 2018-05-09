@@ -1,0 +1,115 @@
+- tmux:
+  shell: sudo apt install tmux
+
+- gnome-shell-extensions:
+  shell: sudo apt install gnome-shell-extensions
+  shell: sudo apt install gnome-shell-extension-system-monitor
+
+- atom:
+  shell: sudo add-apt-repository ppa:webupd8team/atom
+  shell: sudo apt-get update
+  shell: sudo apt-get install atom
+
+- chromium:
+  shell: sudo apt install chromium-browser
+
+- nmon:
+  shell: sudo apt install nmon
+
+- zeal:
+  shell: sudo apt install zeal
+
+- jq:
+  shell: sudo apt install jq
+
+- git:
+  shell: apt install git
+  shell: git config --global user.email "aleix.penella@edreamsodigeo.com"
+  shell: git config --global user.name "Aleix Penella"
+
+- keypassx:
+  shell: sudo add-apt-repository ppa:eugenesan/ppa
+  shell: sudo apt-get update
+  shell: sudo apt-get install keepassx
+
+- user-key:
+  shell: ssh-keygen -t rsa -b 2048 -C "aleix.penella@odigeoconnect.com"
+
+- slack:
+  pkg_url: 
+  shell: apt --fix-broken install
+
+- parallel:
+  shell: sudo apt install parallel
+
+- curl:
+  shell: sudo apt install curl
+
+- virtualbox:
+  shell: sudo apt install virtualbox
+
+- vagrant:
+  pkg_url: https://releases.hashicorp.com/vagrant/2.1.0/vagrant_2.1.0_x86_64.deb
+  shell: dpgk -i vagrant_2.1.0_x86_64.deb
+  shell: sudo apt install nfs-kernel-server
+
+- ansible:
+  shell: sudo apt-get update
+  shell: sudo apt-get install software-properties-common
+  shell: sudo apt-add-repository ppa:ansible/ansible
+  shell: sudo apt-get update
+  shell: sudo apt install ansible
+
+- ansible-lint:
+  shell: apt install python-pip 
+  shell: apt install python3-pip
+  shell: pip2 install ansible-lint
+
+- docker:
+  shell: url -fsSL https://download.docker.com/linux/ubunt│  - ansible-geoelasticu/gpg | sudo apt-key add -
+  shell: sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  shell: sudo apt update
+  shell: sudo apt install docker-ce
+
+- docker-compose:
+  shell: sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+  shell: sudo chmod +x /usr/local/bin/docker-composea
+
+- ant:
+  shell: sudo apt install ant
+
+- repos:
+  ansible:
+  - ansible-consul
+  - ansible-docker-registry
+  - ansible-geoelastic
+  - ansible-logstash-kong
+  - ansible-next
+  - ansible-prometheus
+  - ansible-rabbitmq
+  - ansible-sonarqube
+  - ansible-vpn;ansible-cd
+  - ansible-controlpanel
+  - ansible-elkg
+  - ansible-jmeter
+  - ansible-lxc
+  - ansible-mktg
+  - ansible-odigeo-connect
+  - ansible-pureftp
+  - ansible-scripts
+  - ansible-tests
+  - ansible-webs;ansible-channel-manager-simulator
+  - ansible-dns
+  - ansible-fast
+  - ansible-kong
+  - ansible-mail
+  - ansible-ms
+  - ansible-packer
+  - ansible-qax
+  - ansible-skeleton
+  - ansible-tic
+  ci-tools:
+  - aws-oc-deploy
+  script/devops:
+  - devops
+

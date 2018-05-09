@@ -1,0 +1,9 @@
+---
+- name: Include vars
+  include_vars:
+    file: vars/all
+
+- include_tasks: "{{ ansible_os_family | lower }}.yml"
+  with_items: "{{ packages }}"
+  loop_control:
+    loop_var: package
