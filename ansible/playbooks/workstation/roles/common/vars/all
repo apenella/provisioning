@@ -2,6 +2,7 @@ packages:
   - curl
   - git
   - nmon
-  - parallel
-  - tmux
-  - virtualbox
+  - docker-ce
+#  - parallel
+#  - tmux
+#  - virtualbox

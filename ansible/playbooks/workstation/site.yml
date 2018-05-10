@@ -5,7 +5,3 @@
 #  become_method: sudo
   roles:
     - common
-
-  tasks:
-    - debug:
-        msg: "{{ ansible_os_family | lower }}"
