@@ -1,8 +1,21 @@
 ---
-- name: test
+- name: xenial
   box: ubuntu/xenial64
   vm:
-    name: test
+    name: xenial
+    memory: 256
+    cpus: 1
+  provision:
+  ansible:
+    playbook_path: ../playbooks/workstation/site.yml
+    verbose: v
+    extra_vars:
+      ansible_python_interpreter: '/usr/bin/python3'
+
+- name: bionic
+  box: ubuntu/bionic64
+  vm:
+    name: bionic
     memory: 256
     cpus: 1
   provision:
