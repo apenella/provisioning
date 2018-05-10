@@ -20,3 +20,6 @@ bin/*
 .kitchen.local.yml
 
 *.log
+
+# ansible
+*.retry
