@@ -1,0 +1,9 @@
+---
+- name: Include vars
+  include_vars:
+    file: vars/all
+
+- include_tasks: debian.yml
+  with_items: "{{ packages }}"
+  loop_control:
+    loop_var: package

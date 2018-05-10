@@ -1,0 +1,13 @@
+---
+- name: test
+  box: ubuntu/xenial64
+  vm:
+    name: test
+    memory: 256
+    cpus: 1
+  provision:
+  ansible:
+    playbook_path: ../playbooks/workstation/site.yml
+    verbose: v
+    extra_vars:
+      ansible_python_interpreter: '/usr/bin/python3'
