@@ -3,7 +3,7 @@
   box: ubuntu/xenial64
   vm:
     name: xenial
-    memory: 256
+    memory: 512
     cpus: 1
   provision:
   ansible:
