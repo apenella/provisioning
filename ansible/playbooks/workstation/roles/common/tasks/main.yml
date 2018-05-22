@@ -3,9 +3,8 @@
   include_vars:
     file: vars/all
 
-- name: Include role to install packages
-  include_role:
-    name: install
+- name: Install packages
+  include_tasks: install.yml
   with_items: "{{ packages }}"
   loop_control:
     loop_var: package

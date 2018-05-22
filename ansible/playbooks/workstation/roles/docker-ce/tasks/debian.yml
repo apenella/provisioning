@@ -20,3 +20,4 @@
 - name: Install Docker
   apt:
     name: docker-ce
+    state: present
