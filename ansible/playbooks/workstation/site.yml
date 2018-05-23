@@ -5,3 +5,6 @@
 #  become_method: sudo
   roles:
     - common
+    - base
+    - docker-ce
+    - golang

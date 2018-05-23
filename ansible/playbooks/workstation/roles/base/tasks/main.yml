@@ -3,7 +3,7 @@
   include_vars:
     file: vars/all
 
-- name: Install common packages
+- name: Install base packages
   include_tasks: install.yml
   with_items: "{{ packages }}"
   loop_control:

@@ -1,0 +1,10 @@
+---
+
+- name: "Install {{ package }}"
+  apt:
+    name: "{{ package }}"
+    state: present
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+  tags:
+    - packages

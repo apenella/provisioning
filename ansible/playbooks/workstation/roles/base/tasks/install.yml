@@ -1,6 +1,6 @@
 ---
 
-- name: Tasks to install common
+- name: Tasks to install base
   include_tasks: "{{ install_definition }}"
   with_first_found:
     - files:

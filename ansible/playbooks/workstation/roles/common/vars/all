@@ -1,8 +1,8 @@
 packages:
   - curl
-  - git
   - nmon
-  - docker-ce
-  - parallel
-  - tmux
+  - git
+#  - docker-ce
+#  - parallel
+#  - tmux
 #  - virtualbox
