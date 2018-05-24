@@ -6,9 +6,15 @@
     url: https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz
     dest: /tmp/go1.10.2.linux-amd64.tar.gz
     checksum: sha256:4b677d698c65370afa33757b6954ade60347aaca310ea92a63ed717d7cb0c2ff
-    mode: 0644
+    mode: 0755
+  tags:
+    - golang
+
 
 - name: Extract golang
   unarchive:
     src: /tmp/go1.10.2.linux-amd64.tar.gz
-    dest: /usr/local/bin
+    dest: /usr/local
+    remote_src: yes
+  tags:
+    - golang
