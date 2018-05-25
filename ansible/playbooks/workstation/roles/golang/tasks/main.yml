@@ -10,7 +10,6 @@
   tags:
     - golang
 
-
 - name: Extract golang
   unarchive:
     src: /tmp/go1.10.2.linux-amd64.tar.gz
@@ -18,3 +17,8 @@
     remote_src: yes
   tags:
     - golang
+
+- name: add golang bin to path
+  copy:
+    dest: /etc/profile.d/golang.sh
+    content: 'PATH=$PATH:/usr/local/go/bin'   
