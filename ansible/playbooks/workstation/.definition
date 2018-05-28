@@ -65,6 +65,9 @@
   shell: apt install python3-pip
   shell: pip2 install ansible-lint
 
+- php:
+  shell: apt install php7.1
+
 - docker:
   shell: url -fsSL https://download.docker.com/linux/ubunt│  - ansible-geoelasticu/gpg | sudo apt-key add -
   shell: sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
