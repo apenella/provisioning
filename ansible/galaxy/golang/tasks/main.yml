@@ -21,12 +21,12 @@
 
 - name: Golang user directories
   file:
-    path: "{{ item }}"
+    path: "{{ item.file }}"
     state: directory
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     recurse: yes
-    mode: 0775
+    mode: "{{ item.mode }}"
   with_items: "{{ go_working_dirs }}"
   tags:
     - golang

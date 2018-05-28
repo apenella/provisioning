@@ -4,9 +4,12 @@ go_dir_bin: "{{ go_dir_base }}/go/bin"
 go_dir_gopath: /go
 
 go_working_dirs:
-  - "{{ go_dir_gopath }}/bin"
-  - "{{ go_dir_gopath }}/pkg"
-  - "{{ go_dir_gopath }}/src"
+  - file: "{{ go_dir_gopath }}/bin"
+    mode: 755
+  - file: "{{ go_dir_gopath }}/pkg"
+    mode: 644
+  - file: "{{ go_dir_gopath }}/src"
+    mode: 644
 
 go_pkg_version: 1.10.2
 go_pkg_os: linux
