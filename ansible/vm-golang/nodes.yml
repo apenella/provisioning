@@ -1,0 +1,17 @@
+---
+- name: golang
+  box: ubuntu/bionic64
+  vm:
+    name: golang
+    memory: 512
+    cpus: 2
+    synced_folders:
+      - src: /devops/developement/go/src
+        dest: /go/src
+  provision:
+  ansible:
+    playbook_path: ../playbooks/golang/site.yml
+    verbose: v
+    tags: golang
+    extra_vars:
+      ansible_python_interpreter: '/usr/bin/python3'

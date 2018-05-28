@@ -1,0 +1,9 @@
+---
+
+- name: Golang developement server
+  hosts: all
+  become: yes
+  roles:
+    - common
+    - tmux
+    - golang

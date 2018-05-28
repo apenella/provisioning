@@ -1,4 +1,5 @@
 ---
+
 - name: Workstation deployment
   hosts: all
   become: yes

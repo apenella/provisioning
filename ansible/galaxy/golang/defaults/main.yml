@@ -1,0 +1,17 @@
+go_dir_base: /usr/local
+go_dir_goroot: "{{ go_dir_base }}/go"
+go_dir_bin: "{{ go_dir_base }}/go/bin"
+go_dir_gopath: /go
+
+go_working_dirs:
+  - "{{ go_dir_gopath }}/bin"
+  - "{{ go_dir_gopath }}/pkg"
+  - "{{ go_dir_gopath }}/src"
+
+go_pkg_version: 1.10.2
+go_pkg_os: linux
+go_pkg_arch: amd64
+go_pkg_checksum: sha256:4b677d698c65370afa33757b6954ade60347aaca310ea92a63ed717d7cb0c2ff
+
+go_get:
+  - github.com/golang/dep/cmd/dep

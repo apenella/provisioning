@@ -1,0 +1,61 @@
+---
+
+- name: Download golang
+  get_url:
+    url: "https://dl.google.com/go/go{{ go_pkg_version }}.{{ go_pkg_os }}-{{ go_pkg_arch }}.tar.gz"
+    dest: "/tmp/go{{ go_pkg_version }}.{{ go_pkg_os }}-{{ go_pkg_arch }}.tar.gz"
+    checksum: "{{ go_pkg_checksum }}"
+    mode: 0755
+  tags:
+    - golang
+    - golang-bin
+
+- name: Extract golang
+  unarchive:
+    src: "/tmp/go{{ go_pkg_version }}.{{ go_pkg_os }}-{{ go_pkg_arch }}.tar.gz"
+    dest: "{{ go_dir_base }}"
+    remote_src: yes
+  tags:
+    - golang
+    - golang-bin
+
+- name: Golang user directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    recurse: yes
+    mode: 0775
+  with_items: "{{ go_working_dirs }}"
+  tags:
+    - golang
+    - golang-bin
+
+- name: Prepare golang environment variables
+  template:
+    src: golang.sh.j2
+    dest: /etc/profile.d/golang.sh
+    mode: 0755
+  tags:
+    - golang
+    - golang-bin
+
+- name: Download golang dep installer
+  get_url:
+    url: https://raw.githubusercontent.com/golang/dep/master/install.sh
+    dest: /tmp/golang-dep-installer.sh
+    mode: 0755
+  tags:
+    - golang
+    - golang-dep
+
+- name: Execute golang dep installer.sh
+  shell: /tmp/golang-dep-installer.sh
+  environment:
+    PATH: "{{ ansible_env.PATH}}:{{ go_dir_bin }}"
+    GOROOT: "{{ go_dir_bin }}"
+    GOPATH: "{{ go_dir_gopath }}"
+  tags:
+    - golang
+    - golang-dep
