@@ -1,3 +1,5 @@
+---
+
 go_dir_base: /usr/local
 go_dir_goroot: "{{ go_dir_base }}/go"
 go_dir_bin: "{{ go_dir_base }}/go/bin"

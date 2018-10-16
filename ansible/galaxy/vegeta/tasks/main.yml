@@ -2,9 +2,8 @@
 
 - name: Achive vegeta
   unarchive:
-    src: "{{ vegeta_download }}" 
+    src: "{{ vegeta_download }}"
     dest: "{{ vegeta_bin_dir }}"
-    remote_src: yes
+    remote_src: true
   tags:
     - vegeta
-

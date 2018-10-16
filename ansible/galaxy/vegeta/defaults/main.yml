@@ -1,3 +1,5 @@
+---
+
 vegeta_dir_base: /usr/local/
 vegeta_dir_bin: "{{ vegeta_dir_base }}/bin"
 
