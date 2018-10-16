@@ -26,3 +26,6 @@ bin/*
 
 # Vagrant vm definition 
 nodes.yml
+
+# vms definition
+vms/*

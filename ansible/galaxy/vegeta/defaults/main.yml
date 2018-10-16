@@ -1,0 +1,12 @@
+vegeta_dir_base: /usr/local/
+vegeta_dir_bin: "{{ vegeta_dir_base }}/bin"
+
+vegeta_pkg_version: 11.3.0
+vegeta_pkg_os: linux
+vegeta_pkg_arch: amd64
+vegeta_pkg_checksum: sha256:4b677d698c65370afa33757b6954ade60347aaca310ea92a63ed717d7cb0c2ff
+
+vegeta_downloand: "https://github.com/tsenart/vegeta/releases/download/cli%2Fv{{ vegeta_pkg_version }}/vegeta-{{ vegeta_pkg_version }}-{{ vegeta_pkg_os }}-{{ vegeta_pkg_arch }}.tar.gz"
+
+vegeta_get:
+  - github.com/tsenart/vegeta

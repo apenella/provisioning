@@ -6,7 +6,7 @@
     memory: 512
     cpus: 2
     synced_folders:
-      - src: /devops/developement/go/src
+      - src: /home/ODIGEO/aleix.penella/projects/developement/go/src
         dest: /go/src
   provision:
   ansible:

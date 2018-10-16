@@ -14,7 +14,6 @@ Vagrant.configure(2) do |config|
       # node definition
       n.vm.hostname = node['name']
       n.vm.box = node['box']
-      n.vm.network (node['network']['type'] ? node['network']['type'] : 'private_network'), ip: node['network']['ip']
 
       #puts node['vm']['name'] || node['name']
 

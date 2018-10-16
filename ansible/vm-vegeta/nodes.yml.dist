@@ -4,15 +4,14 @@
   box: ubuntu/xenial64
   vm:
     name: xenial
-    memory: 2048 
+    memory: 256
     cpus: 1
-  network:
-    type: private_network
-    ip: 192.168.50.10
+    synced_folders:
+      - src: /devops/developement/go/src
+        dest: /go/src
   provision:
   ansible:
-    #playbook_path: ../playbooks/workstation/site.yml
-    playbook_path: ../playbooks/training/site.yml
+    playbook_path: ../playbooks/workstation/site.yml
     verbose: v
     extra_vars:
       ansible_python_interpreter: '/usr/bin/python3'

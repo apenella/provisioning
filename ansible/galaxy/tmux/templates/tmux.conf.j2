@@ -1,6 +1,11 @@
 
 ## {{ ansible_managed }}
 
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+
 ## Create new window with c
 bind c new-window
 ## Rename window
@@ -85,3 +90,6 @@ set -g message-bg colour166
 #set -g window-active-style 'bg=colour234,fg=colour231'
 set -g window-active-style 'bg=colour232,fg=colour231'
 set -g window-style 'bg=colour234,fg=colour253'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'

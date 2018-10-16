@@ -1,0 +1,18 @@
+---
+
+- name: Workstation deployment
+  hosts: all
+  become: yes
+  gather_facts: no
+  vars:
+    message: "OC-qa-LC-ms-travelclick-api"
+  tasks:
+    - template: 
+        src: dns.j2
+        dest: dns
+
+    - debug:
+        msg: "{{ message | regex_replace('^OC-[A-Za-z]+-LC-(.*)','\\1')}}"
+
+    - debug:
+        msg: "The IPv4 address for example.com. is {{ lookup('dig', 'budgetplaces.com.', '@1.0.0.1') }}"

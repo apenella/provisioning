@@ -1,0 +1,5 @@
+{% set domain_entries  = lookup('dig', 'budgetplaces.com.', '@1.0.0.1') %}
+@               IN      A       52.48.185.210
+{% for domain_entry in domain_entries.split(',') %}
+@               IN      A       {{ domain_entry }}
+{% endfor %}
