@@ -111,6 +111,9 @@
 - ant:
   shell: sudo apt install ant
 
+- nextcloud:
+  shell: snap install nextcloud-client
+
 - repos:
   ansible:
   - ansible-consul
