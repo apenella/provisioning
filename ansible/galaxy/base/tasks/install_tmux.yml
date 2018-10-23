@@ -1,7 +1,0 @@
----
-
-- name: Include role to install tmux
-  include_role:
-    name: tmux
-  tags:
-    - tmux

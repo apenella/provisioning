@@ -3,9 +3,7 @@
 - name: Workstation deployment
   hosts: all
   become: yes
-#  become_method: sudo
+
   roles:
-    - common
-    - base
-    - docker-ce
-      #    - golang
+    - ansible-role-system-base
+    - ansible-role-gnome

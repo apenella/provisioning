@@ -1,8 +1,0 @@
-packages:
-  - curl
-  - nmon
-  - git
-#  - docker-ce
-#  - parallel
-#  - tmux
-#  - virtualbox

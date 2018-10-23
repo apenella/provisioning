@@ -1,7 +1,0 @@
----
-
-- name: Include role to install Docker-ce
-  include_role:
-    name: docker-ce
-  tags:
-    - docker-ce

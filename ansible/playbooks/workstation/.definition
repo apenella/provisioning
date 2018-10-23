@@ -1,3 +1,11 @@
+# install git
+#  shell: sudo apt install git
+# install ansible
+#  shell: sudo add-apt-repository ppa:ansible/ansible
+#  shell: sudo apt update
+#  shell: sudo apt install ansible
+
+
 - tmux:
   shell: sudo apt install tmux
 
