@@ -1,0 +1,15 @@
+---
+# tasks file for vagrant installation 
+
+- name: "Installing vagrant {{ vagrant_version }}"
+  import_role:
+    name: andrewrothstein.vagrant 
+  vars:
+    vagrant_version: 2.2.0
+    vagrant_checksums:
+      2.2.0:
+        x86_64:
+          deb: sha256:f1caad948a8f545d5d7d2442396fe8a3bcdfd0fc8f643bd0576c81942e7be43b
+          dmg: sha256:016bf5470cf940df50dceae7fd5f0d333617ca42835f106846c91669b3305255
+          rpm: sha256:d37c543e90926c375ad00484e069d7afb1d8878eea2f648b40be16abc70aa2c5
+

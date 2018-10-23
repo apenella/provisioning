@@ -1,0 +1,11 @@
+---
+# defaults file for ansible-role-system-base
+
+packages:
+  - network-manager-openvpn
+  - network-manager-openvpn-gnome
+  - parallel
+  - tmux
+  - vim
+  - xclip
+

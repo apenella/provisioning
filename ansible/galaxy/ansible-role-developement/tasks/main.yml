@@ -1,0 +1,9 @@
+---
+# tasks file for ansible-role-development
+
+- name: Tasks to install development packages
+  include_tasks: install.yml
+  with_items: "{{ packages }}"
+  loop_control:
+    loop_var: devel_package_name
+

@@ -1,0 +1,6 @@
+---
+# defaults file for gnome
+
+packages:
+  - gnome-shell-extensions
+  - gnome-shell-extension-system-monitor

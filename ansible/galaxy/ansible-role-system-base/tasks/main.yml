@@ -1,0 +1,9 @@
+---
+# tasks file for ansible-role-system-base
+
+- name: Tasks to install system base packages
+  include_tasks: install.yml
+  with_items: "{{ packages }}"
+  loop_control:
+    loop_var: system_package_name
+

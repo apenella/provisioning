@@ -1,0 +1,11 @@
+---
+
+- name: "Install {{ package }} from common role"
+  include_tasks: "{{ install_definition }}"
+  with_first_found:
+    - files:
+      - install_{{ package }}.yml
+      - install_default.yml
+  loop_control:
+    loop_var: install_definition
+

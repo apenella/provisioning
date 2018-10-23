@@ -1,0 +1,9 @@
+---
+# tasks file for ansible-role-gnome
+
+- name: Tasks to install gnome packages
+  include_tasks: install.yml
+  with_items: "{{ packages }}"
+  loop_control:
+    loop_var: gnome_package_name
+

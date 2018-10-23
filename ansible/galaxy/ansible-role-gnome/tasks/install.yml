@@ -1,0 +1,12 @@
+---
+# tasks file for ansible-role-gnome
+
+- name: "Task to choose install method for gnome package {{ gnome_package_name }}"
+  include_tasks: "{{ install_gnome_package }}"
+  with_first_found:
+    - files:
+      - install_{{ gnome_package_name }}.yml
+      - install_default.yml
+  loop_control:
+    loop_var: install_gnome_package
+
