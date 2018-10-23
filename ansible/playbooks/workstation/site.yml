@@ -4,6 +4,17 @@
   hosts: all
   become: yes
 
-  roles:
-    - ansible-role-system-base
-    - ansible-role-gnome
+  tasks:
+
+    - name: System base packages
+      import_role:
+        name: ansible-role-system-base
+      
+    - name: Gnome packages
+      import_role:
+        name: ansible-role-gnome
+
+    - name: Development packages
+      import_role:
+        name: ansible-role-development
+
