@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: John Freeman
+  description: Role for installing extensions for the atom.io editor.
+  company: GantSign Ltd.
+  license: MIT
+  min_ansible_version: 2.4
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+  galaxy_tags:
+    - atom
+    - development
+dependencies: []

@@ -1,0 +1,13 @@
+---
+
+- name: Add PPA for Atrom.
+  apt_repository:
+    repo: ppa:webupd8team/atom 
+    state: present
+    update_cache: true
+
+- name: Ensure atom is installed.
+  apt:
+    name: atom 
+    state: present
+

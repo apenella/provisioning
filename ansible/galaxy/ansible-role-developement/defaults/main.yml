@@ -2,6 +2,7 @@
 # defaults file for ansible-role-development
 
 packages:
+  - atom
   - git
   - jq
   - virtualbox

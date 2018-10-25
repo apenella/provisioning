@@ -1,0 +1,7 @@
+---
+# tasks file for ansible-role-atom
+
+- name: Include tasks for debian family 
+  include_tasks: install_debian.yml
+  when: ansible_os_family == 'Debian'
+

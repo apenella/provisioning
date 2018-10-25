@@ -1,0 +1,7 @@
+---
+
+- import_tasks: install.yml
+
+- import_tasks: install-packages.yml
+
+- import_tasks: write-config.yml
