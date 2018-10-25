@@ -3,3 +3,13 @@
 #
 - src: andrewrothstein.vagrant
 
+- src: gantsign.atom
+  
+- src: gantsign.atom-packages
+
+- src: gantsign.visual-studio-code
+
+- src: gantsign.visual-studio-code-extensions
+
+- src: geerlingguy.docker
+
