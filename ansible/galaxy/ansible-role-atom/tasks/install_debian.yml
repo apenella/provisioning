@@ -1,6 +1,6 @@
 ---
 
-- name: Add PPA for Atrom.
+- name: Add PPA for Atom.
   apt_repository:
     repo: ppa:webupd8team/atom 
     state: present

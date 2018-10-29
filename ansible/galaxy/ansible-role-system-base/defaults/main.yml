@@ -5,7 +5,9 @@ packages:
   - network-manager-openvpn
   - network-manager-openvpn-gnome
   - parallel
+  - tlp
   - tmux
+  - ubuntu-restricted-extras
   - vim
   - xclip
 

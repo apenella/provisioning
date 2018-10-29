@@ -9,7 +9,9 @@
     - name: System base packages
       import_role:
         name: ansible-role-system-base
-      
+      tags:
+        - system
+
     - name: Gnome packages
       import_role:
         name: ansible-role-gnome
@@ -17,4 +19,8 @@
     - name: Development packages
       import_role:
         name: ansible-role-development
+
+    - name: Entertainment packages
+      import_role:
+        name: ansible-role-entertainment
 
