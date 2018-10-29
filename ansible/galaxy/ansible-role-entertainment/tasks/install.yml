@@ -1,0 +1,12 @@
+---
+# tasks file for ansible-role-gnome
+
+- name: "Task to choose install method for entertainment package {{ entertainment_package_name }}"
+  include_tasks: "{{ install_entertainment_package }}"
+  with_first_found:
+    - files:
+      - install_{{ entertainment_package_name }}.yml
+      - install_default.yml
+  loop_control:
+    loop_var: install_entertainment_package
+

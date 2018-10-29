@@ -1,0 +1,10 @@
+---
+# tasks file for ansible-role-entertainment
+
+- name: "Installing gnome package {{ entertainment_package_name }}" 
+  include_role:
+    name: ansible-role-common
+    tasks_from: install
+  vars:
+    package: "{{ entertainment_package_name }}"  
+

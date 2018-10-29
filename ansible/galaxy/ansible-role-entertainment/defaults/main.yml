@@ -1,0 +1,7 @@
+---
+# defaults file for ansible-role-entertaiment
+
+packages:
+  - ubuntu-restricted-extras 
+  - vlc 
+
