@@ -4,6 +4,7 @@
 packages:
   - network-manager-openvpn
   - network-manager-openvpn-gnome
+  - keepassxc
   - parallel
   - tlp
   - tmux
