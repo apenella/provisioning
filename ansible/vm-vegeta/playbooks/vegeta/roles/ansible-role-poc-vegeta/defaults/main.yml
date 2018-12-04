@@ -1,0 +1,11 @@
+---
+# defaults file for ansible-role-poc-vegeta
+
+poc_vegeta_repo: vegeta-training
+poc_vegeta_repo_url: "git@gitlab.odigeoconnect.com:poc/{{ poc_vegeta_repo }}.git"
+#poc_vegeta_dir: /poc
+poc_vegeta_dir: /vegeta-training
+
+poc_vegeta_required_packages:
+  - composer
+  - php

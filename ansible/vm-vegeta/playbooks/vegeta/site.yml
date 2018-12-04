@@ -1,0 +1,11 @@
+---
+
+- name: Vegeta machine deployment
+  hosts: all
+  become: yes
+#  become_method: sudo
+  roles:
+    - ansible-role-common
+    - ansible-role-vegeta
+    - ansible-role-poc-vegeta
+

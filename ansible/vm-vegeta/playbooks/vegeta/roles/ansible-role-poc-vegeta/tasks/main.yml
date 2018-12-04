@@ -1,0 +1,31 @@
+---
+# tasks file for ansible-role-poc-vegeta
+
+- name: Install required packages for the POC
+  package:
+    name: "{{ poc_vegeta_required_packages }}"
+    state: present
+
+- name: "Check {{ poc_vegeta_dir }} state"
+  stat:
+    path: "{{ poc_vegeta_dir }}" 
+  register: poc_vegeta_dir_stat
+
+- name: "Create {{ poc_vegeta_dir }} dir"
+  file:
+    path: "{{ poc_vegeta_dir }}"
+    state: directory
+  when: not poc_vegeta_dir_stat.stat.exists
+
+  #- name: "Check {{ poc_vegeta_dir }}/{{ poc_vegeta_repo}} state"
+  #  stat:
+  #    path: "{{ poc_vegeta_dir }}/{{ poc_vegeta_repo }}" 
+  #  register: poc_vegeta_repo_dir_stat
+  #
+  #- name: "Clone POC repository"
+  #  git:
+  #    repo: "{{ poc_vegeta_repo_url }}"
+  #    clone: yes
+  #    dest: "{{ poc_vegeta_dir }}"
+  #  when: not poc_vegeta_repo_dir_stat.stat.exists
+  #

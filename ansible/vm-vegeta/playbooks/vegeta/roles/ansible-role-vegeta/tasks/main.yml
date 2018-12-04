@@ -1,0 +1,10 @@
+---
+
+- name: Achieve Vegeta
+  unarchive:
+    src: "{{ vegeta_download }}"
+    dest: "{{ vegeta_dir_bin }}"
+    remote_src: true
+  tags:
+    - vegeta
+
