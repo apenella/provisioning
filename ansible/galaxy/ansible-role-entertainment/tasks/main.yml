@@ -1,0 +1,9 @@
+---
+# tasks file for ansible-role-entertainment
+
+- name: Tasks to install entertaiment packages
+  include_tasks: install.yml
+  with_items: "{{ packages }}"
+  loop_control:
+    loop_var: entertainment_package_name
+

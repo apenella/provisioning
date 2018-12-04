@@ -1,0 +1,6 @@
+---
+
+tmux_user: "{{ ansible_user }}"
+tmux_config_file: ~/.tmux.conf
+tmux_plugin_tpm_repo: https://github.com/tmux-plugins/tpm
+tmux_plugin_tpm_dir: ~/.tmux/plugins/tpm

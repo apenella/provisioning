@@ -1,0 +1,27 @@
+---
+# tasks file for ansible-role-tmux
+
+- name: "Include installation tasks"
+  include_tasks: "install_{{ ansible_os_family | lower }}.yml"
+
+- name: "Check {{ tmux_plugin_tpm_dir }} state"
+  become: "{{ tmux_user }}"
+  stat:
+    path: "{{ tmux_plugin_tpm_dir }}"
+  register: tmux_plugin_tpm_dir_stat
+
+- name: Tmux plugin manager
+  become: "{{ tmux_user }}"
+  git:
+    repo: "{{ tmux_plugin_tpm_repo }}"
+    dest: "{{ tmux_plugin_tpm_dir }}"
+  when: not tmux_plugin_tpm_dir_stat.stat.exists
+
+- name: Configure tmux
+  become: "{{ tmux_user }}"
+  template:
+    src: tmux.conf.j2
+    dest: "{{ tmux_config_file }}"
+    owner: "{{ user | default(ansible_user) }}"
+    group: "{{ansible_user}}"
+    mode: 0644

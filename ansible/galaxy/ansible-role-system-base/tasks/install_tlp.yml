@@ -1,0 +1,18 @@
+---
+
+- name: Add PPA for tlp  
+  apt_repository:
+    repo: ppa:linrunner/tlp
+    state: present
+    update_cache: true            
+
+- name: Include tlp variables
+  include_vars: vars/tlp.yml
+
+- name: "Ensure {{ item }} is installed."
+  apt: 
+    name: "{{ tlp_packages }}"
+    state: present
+    autoclean: true
+    autoremove: true
+
