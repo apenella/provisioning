@@ -6,7 +6,7 @@
     memory: 512
     cpus: 2
     synced_folders:
-      - src: /home/ODIGEO/aleix.penella/projects/developement/go/src
+      - src: /home/aleix/projects/go/src
         dest: /go/src
   provision:
   ansible:
@@ -15,3 +15,4 @@
     #tags: golang
     extra_vars:
       ansible_python_interpreter: '/usr/bin/python3'
+

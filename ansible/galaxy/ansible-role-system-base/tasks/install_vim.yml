@@ -1,0 +1,6 @@
+---
+
+- name: Include role to install vim 
+  import_role:
+    name: ansible-role-vim
+

@@ -1,7 +1,7 @@
 ---
 # tasks file for atom installation 
 
-- name: "Installing vagrant {{ vagrant_version }}"
+- name: "Installing atom"
   import_role:
     name: ansible-role-atom 
 

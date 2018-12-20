@@ -1,2 +1,5 @@
 ---
 # defaults file for ansible-role-vim
+
+user_home: /home/aleix
+

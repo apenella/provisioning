@@ -19,6 +19,8 @@
     - name: Development packages
       import_role:
         name: ansible-role-development
+      tags:
+        - development
 
     - name: Entertainment packages
       import_role:

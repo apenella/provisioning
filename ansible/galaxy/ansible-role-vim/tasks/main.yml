@@ -1,2 +1,71 @@
 ---
 # tasks file for ansible-role-vim
+
+- name: Install vim
+  apt:
+    name: vim
+    update_cache: yes
+    state: present
+    autoclean: yes
+    autoremove: yes
+
+- name: Check if dotfiles folder exist 
+  stat:
+    path: "{{ user_home }}/.vim/autoload" 
+  register: vimautoload 
+
+- name: Create dotfiles folder
+  file:
+    path: "{{ user_home }}/.vim/autoload"
+    state: directory
+  when: not vimautoload.stat.exists
+
+- name: Check if dotfiles folder exist 
+  stat:
+    path: "{{ user_home }}/.vim/autoload/plug.vim"
+  register: plugvim 
+
+- name: Install plugin management system plug-vim
+  uri:
+    url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    dest: "{{ user_home }}/.vim/autoload/plug.vim"
+  when: not plugvim.stat.exists 
+
+- name: Check if dotfiles folder exist 
+  stat:
+    path: "{{ user_home }}/dotfiles" 
+  register: dotfiles 
+
+- name: Create dotfiles folder
+  file:
+    path: "{{ user_home }}/dotfiles"
+    state: directory
+  when: not dotfiles.stat.exists
+
+- name: Copy vim configuration file
+  template:
+    src: vimrc.j2
+    dest: "{{ user_home }}/dotfiles/vimrc"
+
+- name: Create symbolic link to vim configuration file
+  file:
+    src: "{{ user_home }}/dotfiles/vimrc" 
+    dest: "{{ user_home }}/.vimrc" 
+    state: link
+
+# - name: Install ctrlp plugin 
+#   git:
+#     repo: https://github.com/kien/ctrlp.vim.git 
+#     dest: "{{ user_home }}/.vim/bundle/ctrlp.vim"
+# 
+# - name: Install nerdtree plugin 
+#   git:
+#     repo: https://github.com/scrooloose/nerdtree.git
+#     dest: "{{ user_home }}/.vim/bundle/nerdtree"
+# 
+# - name: Install ansible-vim plugin 
+#   git:
+#     repo: https://github.com/pearofducks/ansible-vim
+#     dest: "{{ user_home }}/.vim/bundle/ansible-vim"
+# 
+

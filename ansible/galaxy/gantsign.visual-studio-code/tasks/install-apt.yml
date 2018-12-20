@@ -25,3 +25,4 @@
   apt:
     name: "code{{ (visual_studio_code_version != '') | ternary('=' + visual_studio_code_version, '') }}"
     state: present
+

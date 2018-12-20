@@ -7,4 +7,5 @@ packages:
   - jq
   - virtualbox
   - vagrant 
+  - vscode
 
