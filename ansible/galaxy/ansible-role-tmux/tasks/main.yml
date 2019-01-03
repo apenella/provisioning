@@ -23,5 +23,5 @@
     src: tmux.conf.j2
     dest: "{{ tmux_config_file }}"
     owner: "{{ user | default(ansible_user) }}"
-    group: "{{ansible_user}}"
+    group: "{{ ansible_user }}"
     mode: 0644
