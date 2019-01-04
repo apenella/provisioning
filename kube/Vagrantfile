@@ -17,6 +17,17 @@ Vagrant.configure(2) do |config|
 
       #puts node['vm']['name'] || node['name']
 
+      if node['networking'].is_a?(Array) && !node['networking'].nil?
+        node['networking'].each do |network|
+	  case network['type']
+	  when "private_network"
+	    n.vm.network "private_network", ip: network['ip']
+	  else
+	    puts "Unknown network type"
+	  end
+        end
+      end
+
       # provider definition
       if node['vm'].is_a?(Hash)
         n.vm.provider 'virtualbox' do |vb|
@@ -25,15 +36,6 @@ Vagrant.configure(2) do |config|
           vb.cpus = node['vm']['cpus'] if node['vm'].key?('cpus')
         end
 
-	# networking
-        if node['vm'].key?('networking') && !node['vm']['networking'].nil?
-	  node['vm']['networking'].each do |net|
-	    config.vm.network "#{net['network']}", ip: "#{net['ip']}"
-          end
-	end
-	config.ssh.forward_agent = true
-
-	# synced folders (only basic synced)
         if node['vm'].key?('synced_folders') && !node['vm']['synced_folders'].nil?
           node['vm']['synced_folders'].each do |sf|
             if File.directory?(sf['src'])
@@ -44,14 +46,29 @@ Vagrant.configure(2) do |config|
       end
 
       # provision
-      if node['ansible'].is_a?(Hash)
-        n.vm.provision 'ansible' do |ansible|
-          ansible.playbook = node['ansible']['playbook_path']
-          ansible.verbose = node['ansible']['verbose'] if node['ansible'].key?('verbose')
-          ansible.tags = node['ansible']['tags'] if node['ansible'].key?('tags')
-          ansible.extra_vars = node['ansible']['extra_vars'] if node['ansible'].key?('extra_vars')
-        end
+      if node['provision'].is_a?(Array) && !node['provision'].nil?
+        node['provision'].each do |p|
+	   case p['type']
+
+	   when "ansible"
+	     n.vm.provision 'ansible' do |ansible|
+	        ansible.playbook = p['playbook_path']
+                ansible.verbose = p['verbose'] if p['verbose']
+                ansible.tags = p['tags'] if p['tags']
+                ansible.extra_vars = p['extra_vars'] if p['extra_vars']
+	     end	     
+
+           when "inline"
+	     n.vm.provision "shell" do |s|
+	       s.inline = p['script']
+	       s.args = p['args'] if !p['args'].nil?
+             end
+	   else
+	     puts "Unknown provisioning type"
+	   end	  
+	end  	
       end
+
     end
   end
 end
