@@ -1,0 +1,27 @@
+---
+
+- name: Common tasks
+  become: yes
+  hosts: all
+
+  tasks:
+  - name: include ansible-role-kubernetes
+    include_role:
+      name: ansible-role-kubernetes  
+
+- name: kube-control-plane
+  hosts: kube-control-plane 
+
+  tasks:
+  - name: debug
+    debug:
+      msg: kube-control-plane
+
+- name: kube-worker
+  hosts: kube-worker
+
+  tasks:
+  - name: debug
+    debug:
+      msg: kube-worker
+

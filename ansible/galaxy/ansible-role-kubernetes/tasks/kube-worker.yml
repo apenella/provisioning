@@ -1,0 +1,9 @@
+---
+
+- name: kubeadm initialitzation
+  command: kubeadm version -o short
+  register: kubeadm_version
+
+- name:
+  debug:
+    var: kubeadm_version
