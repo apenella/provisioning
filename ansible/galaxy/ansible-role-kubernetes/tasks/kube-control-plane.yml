@@ -1,13 +1,27 @@
 ---
 
-- name: kubeadm initialitzation
+- name: kubeadm version
   command: kubeadm version -o short
   register: kubeadm_version
 
-- name:
-  debug:
-    var: kubeadm_version.stdout_lines
+- name: Initialize kubernetes cluster
+  command: "kubeadm init --token={{ kube_token }} --apiserver-advertise-address={{ hostvars[inventory_hostname].ansible_host }} --pod-network-cidr={{ kube_pod_network_cird }}"
+  register: kubeadm_init
 
-- name:
+- name: Output kubeadm init
   debug:
-    var: ansible_user 
+    msg: "{{ kubeadm_init.stdout_lines }}"
+
+- name: Create kube folder
+  become_user: "{{ ansible_user }}"
+  file:
+    path: $HOME/.kube
+    state: directory
+
+- name: "Copy admin configuration to {{ ansible_user }}"
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: $HOME/.kube
+    remote_src: yes 
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"

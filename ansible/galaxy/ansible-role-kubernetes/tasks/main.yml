@@ -1,12 +1,12 @@
 ---
 # tasks file for ansible-role-kubernetes
 
-- name: Update system packages 
+- name: Update system packages
   apt:
     update_cache: yes
     cache_valid_time: 86400
 
-- name: Upgrade system packages to lastest version 
+- name: Upgrade system packages to lastest version
   apt:
     upgrade: dist
 
@@ -52,6 +52,7 @@
     name: docker
     state: started
     enabled: yes
+
 
 - name: Kubernetes control plane
   include_role: 

@@ -6,13 +6,14 @@
   gather_facts: no
   vars:
     message: "OC-qa-LC-ms-travelclick-api"
+    version: 1.10.3-0ubuntu0.16.04.3
   tasks:
-    - template: 
-        src: dns.j2
-        dest: dns
+    #- template: 
+    #    src: dns.j2
+    #    dest: dns
 
     - debug:
-        msg: "{{ message | regex_replace('^OC-[A-Za-z]+-LC-(.*)','\\1')}}"
+        msg: "{{ version | regex_replace('^([0-9]+.[0-9]+).*','\\1')}}"
 
-    - debug:
-        msg: "The IPv4 address for example.com. is {{ lookup('dig', 'budgetplaces.com.', '@1.0.0.1') }}"
+    # - debug:
+    # - demsg: "The IPv4 address for example.com. is {{ lookup('dig', 'budgetplaces.com.', '@1.0.0.1') }}"

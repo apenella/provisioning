@@ -1,0 +1,16 @@
+---
+
+- name: Generate first token part for kubeadm
+  set_fact:
+    token_first: "{{ lookup('password', '/dev/null length=6 chars=ascii_letters,digits') | lower }}"
+  when: token_first is not defined
+
+- name: Generate second token part for kubeadm
+  set_fact:
+    token_second: "{{ lookup('password', '/dev/null length=16 chars=ascii_letters,digits') | lower }}"
+  when: token_second is not defined
+
+- name: token
+  debug:
+    msg: "{{ token_first }}.{{ token_second }}"
+
