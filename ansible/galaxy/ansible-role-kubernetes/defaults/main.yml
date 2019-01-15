@@ -4,8 +4,6 @@
 kube_common_packages:
 - kubeadm
 
-kube_pod_network_cird: 192.168.0.0/16
-kube_pod_cird: 10.240
-kube_pod_cird_net: 24
+kube_pod_network_cird: 10.240.0.0/16
 
 kube_token: vrfxbg.izfruyc5gcwd9pra
