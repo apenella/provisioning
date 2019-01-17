@@ -1,8 +1,12 @@
 ---
 
-- name: kubeadm version
+- name: kubeadm achieve version
   command: kubeadm version -o short
   register: kubeadm_version
+
+- name: kubeadm version
+  debug:
+    var: kubeadm_version
 
 - name: Initialize kubernetes cluster
   command: "kubeadm init --token={{ kube_token }} --apiserver-advertise-address={{ hostvars[inventory_hostname].ansible_host }} --pod-network-cidr={{ kube_pod_network_cird }}"
@@ -26,3 +30,6 @@
     remote_src: yes 
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
+
+- name: Include calico
+  include_tasks: calico.yml

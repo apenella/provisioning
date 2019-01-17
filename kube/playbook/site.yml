@@ -9,7 +9,7 @@
   - name: include ansible-role-kubernetes
     include_role:
       name: ansible-role-kubernetes
-      tasks_from: calico
+#      tasks_from: calico
 
 # - name: kube-control-plane
 #   hosts: kube-control-plane 
