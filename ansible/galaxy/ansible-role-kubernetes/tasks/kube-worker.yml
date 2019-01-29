@@ -1,9 +1,9 @@
 ---
 
-- name: kubeadm achieve version
-  command: kubeadm version -o short
-  register: kubeadm_version
+- name: kubeadm worker join command
+  command: "{{ kube_worker_join_commad }}"
+  register: kubeadm_worker_join_command
 
-- name: kubeadm version
+- name: kubeadm kubeadm_worker_join_command
   debug:
-    var: kubeadm_version
+    var: kubeadm_worker_join_command

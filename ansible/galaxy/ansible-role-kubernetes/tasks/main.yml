@@ -6,9 +6,9 @@
     update_cache: yes
     cache_valid_time: 86400
 
-- name: Upgrade system packages to lastest version
-  apt:
-    upgrade: dist
+# - name: Upgrade system packages to lastest version
+#   apt:
+#     upgrade: dist
 
 - name: Generate hosts file
   template:
@@ -53,14 +53,14 @@
     state: started
     enabled: yes
 
-- name: Kubernetes control plane
-  include_role: 
-    name: ansible-role-kubernetes
-    tasks_from: kube-control-plane
-  when: inventory_hostname in groups['kube-control-plane']  
+# - name: Kubernetes control plane
+#   include_role: 
+#     name: ansible-role-kubernetes
+#     tasks_from: kube-control-plane
+#   when: inventory_hostname in groups['kube-control-plane']
 
-- name: Kubernetes worker 
-  include_role: 
-    name: ansible-role-kubernetes
-    tasks_from: kube-worker
-  when: inventory_hostname in groups['kube-worker']  
+# - name: Kubernetes worker 
+#   include_role: 
+#     name: ansible-role-kubernetes
+#     tasks_from: kube-worker
+#   when: inventory_hostname in groups['kube-worker']

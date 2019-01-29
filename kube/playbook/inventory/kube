@@ -8,3 +8,4 @@ controller01
 
 [kube-worker]
 node01
+controller01

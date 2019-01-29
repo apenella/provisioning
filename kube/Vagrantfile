@@ -51,19 +51,19 @@ Vagrant.configure(2) do |config|
 	   case p['type']
 
 	   when "ansible"
-	     n.vm.provision 'ansible' do |ansible|
+	      n.vm.provision 'ansible' do |ansible|
 	        ansible.playbook = p['playbook_path']
 	        ansible.inventory_path = p['inventory_path'] if p['inventory_path']
-                ansible.verbose = p['verbose'] if p['verbose']
-                ansible.tags = p['tags'] if p['tags']
-                ansible.extra_vars = p['extra_vars'] if p['extra_vars']
-	     end	     
-
-           when "inline"
-	     n.vm.provision "shell" do |s|
-	       s.inline = p['script']
-	       s.args = p['args'] if !p['args'].nil?
-             end
+          ansible.verbose = p['verbose'] if p['verbose']
+          ansible.tags = p['tags'] if p['tags']
+          ansible.limit = p['limit'] if p['limit']
+          ansible.extra_vars = p['extra_vars'] if p['extra_vars']
+	      end	     
+      when "inline"
+	      n.vm.provision "shell" do |s|
+	        s.inline = p['script']
+	        s.args = p['args'] if !p['args'].nil?
+        end
 	   else
 	     puts "Unknown provisioning type"
 	   end	  

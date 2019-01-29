@@ -1,38 +1,40 @@
 ---
 
-# - name: Calico deployment folder
-#   become_user: "{{ ansible_user }}"
-#   file:
-#     path: $HOME/.kube/calico
-#     state: directory
-#   register: calico_deployment
-
-# - name: Copy calico deployment configuration
-#   template:
-#     src: calico.yml.j2
-#     dest: "{{ calico_deployment.path}}/calico.yml"
-#     owner: "{{ ansible_user }}"
-#     group: "{{ ansible_user }}"
-
-# - name: Apply calico deployment
-#   become_user: "{{ ansible_user }}"
-#   command: "kubectl apply -f {{ calico_deployment.path}}/calico.yml"
-#   register: calico_apply
-
-- name: Apply calico etcd
+- name: Calico deployment folder
   become_user: "{{ ansible_user }}"
-  command: "kubectl apply -f https://docs.projectcalico.org/v3.4/getting-started/kubernetes/installation/hosted/etcd.yaml"
-  register: calico_etcd_apply
+  file:
+    path: $HOME/.kube/calico
+    state: directory
+  register: calico_deployment
 
-- name: Calico etcd apply output
-  debug:
-    msg: "{{ calico_etcd_apply.stdout_lines }}"
+- name: Copy calico deployment configuration
+  template:
+    src: calico.yml.j2
+    dest: "{{ calico_deployment.path}}/calico.yml"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
 
 - name: Apply calico deployment
   become_user: "{{ ansible_user }}"
-  command: "kubectl apply -f https://docs.projectcalico.org/v3.4/getting-started/kubernetes/installation/hosted/calico.yaml"
+  command: "kubectl apply -f {{ calico_deployment.path}}/calico.yml"
   register: calico_apply
 
 - name: Calico apply output
   debug:
     msg: "{{ calico_apply.stdout_lines }}"
+
+- name: Copy calico etcd deployment configuration
+  template:
+    src: calico_etcd.yml.j2
+    dest: "{{ calico_deployment.path}}/calico_etcd.yml"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+
+- name: Apply calico deployment
+  become_user: "{{ ansible_user }}"
+  command: "kubectl apply -f {{ calico_deployment.path}}/calico_etcd.yml"
+  register: calico_etcd_apply
+
+- name: Calico etcd apply output
+  debug:
+    msg: "{{ calico_etcd_apply.stdout_lines }}"
