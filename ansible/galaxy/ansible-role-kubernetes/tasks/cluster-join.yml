@@ -1,5 +1,0 @@
----
-
-- name: Create a kubeadm token to join node to the cluster
-  command: kubeadm token create --print-join-command --ttl 1h
-  register: kubeadm_join_command

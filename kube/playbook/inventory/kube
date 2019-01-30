@@ -2,10 +2,11 @@
 
 controller01 ansible_host=10.10.1.10 ansible_user='vagrant' ansible_ssh_private_key_file='/home/aleix/projects/provisioning/kube/.vagrant/machines/controller01/virtualbox/private_key'
 node01 ansible_host=10.10.1.20 ansible_user='vagrant' ansible_ssh_private_key_file='/home/aleix/projects/provisioning/kube/.vagrant/machines/node01/virtualbox/private_key'
+node02 ansible_host=10.10.1.21 ansible_user='vagrant' ansible_ssh_private_key_file='/home/aleix/projects/provisioning/kube/.vagrant/machines/node02/virtualbox/private_key'
 
 [kube-control-plane]
 controller01
 
 [kube-worker]
 node01
-controller01
+node02

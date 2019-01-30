@@ -1,9 +1,19 @@
 ---
 
-- name: kubeadm worker join command
-  command: "{{ kube_worker_join_commad }}"
-  register: kubeadm_worker_join_command
+- name: Check if kubelet.conf exists
+  stat:
+    path: "/etc/kubernetes/kubelet.conf"
+  register: kubelet_conf
 
-- name: kubeadm kubeadm_worker_join_command
+- name: "kubeadm join node {{ inventory_hostname }} to {{ hostvars[groups['kube-control-plane'][0]].ansible_host }}"
+  command: |
+    kubeadm join --token {{ kube_token }} \
+    --discovery-token-unsafe-skip-ca-verification \
+    {{ hostvars[groups['kube-control-plane'][0]].ansible_host }}:6443
+  register: kubeadm_join_command
+  when: not kubelet_conf.stat.exists
+
+- name: "Output kubeadm join {{ inventory_hostname }}" 
   debug:
-    var: kubeadm_worker_join_command
+    msg: "{{ kubeadm_join_command.stdout_lines }}"
+  register: not kubelet_conf.stat.exists

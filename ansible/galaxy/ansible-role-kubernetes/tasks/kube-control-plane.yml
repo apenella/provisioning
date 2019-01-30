@@ -14,7 +14,10 @@
   ignore_errors: yes
 
 - name: Initialize kubernetes cluster
-  command: "kubeadm init --token={{ kube_token }} --apiserver-advertise-address={{ hostvars[inventory_hostname].ansible_host }} --pod-network-cidr={{ kube_pod_network_cird }}"
+  command: |
+    kubeadm init --token={{ kube_token }} \
+    --apiserver-advertise-address={{ hostvars[inventory_hostname].ansible_host }} \
+    --pod-network-cidr={{ kube_pod_network_cird }}
   register: kubeadm_init
   when: kubeadm_config.rc != 0
 
@@ -22,7 +25,7 @@
   debug:
     msg: "{{ kubeadm_init.stdout_lines }}"
   when: kubeadm_config.rc != 0
-  
+
 - name: Create kube folder
   become_user: "{{ ansible_user }}"
   file:

@@ -3,16 +3,14 @@
 - name: Common tasks
   become: yes
   hosts: all
-
-  tasks:  
+  tasks:
   - name: include ansible-role-kubernetes
-    include_role:
+    import_role:
       name: ansible-role-kubernetes
 
 - name: kube-control-plane
   become: yes
   hosts: kube-control-plane
-
   tasks:
   - name: Kubernetes control plane
     import_role: 
@@ -22,34 +20,8 @@
 - name: kube-worker
   become: yes
   hosts: kube-worker
-
   tasks:
-  - name: Get information to join to cluster
-    import_role:
-      name: ansible-role-kubernetes
-      tasks_from: cluster-join
-    when: 
-    - kubeadm_join_command is not defined
-    - inventory_hostname in groups['kube-control-plane']
-
-  - name: Set fact kube_worker_join_commad
-    set_fact:
-      kube_worker_join_commad: kubeadm_join_command.stdout_lines
-    when:
-    - kubeadm_join_command is not defined
-    - inventory_hostname in groups['kube-control-plane']
-
-  - name: debug kube_worker_join_commad
-    debug: 
-      msg: "{{ kube_worker_join_commad }}"
-    when: 
-    - kube_worker_join_commad is defined
-    - inventory_hostname in groups['kube-control-plane']
-
   - name: Kubernetes worker 
-    include_role: 
+    import_role: 
       name: ansible-role-kubernetes
       tasks_from: kube-worker
-    vars:
-      kube_worker_join_commad: "{{ hostvars['controller01']['kube_worker_join_commad'] }}"
-    when: inventory_hostname not in groups['kube-control-plane']
