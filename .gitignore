@@ -29,3 +29,6 @@ nodes.yml
 
 # vms definition
 vms/*
+
+# workspace
+*.code-workspace
