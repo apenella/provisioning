@@ -7,3 +7,7 @@ kube_common_packages:
 kube_pod_network_cird: 10.240.0.0/16
 
 kube_token: vrfxbg.izfruyc5gcwd9pra
+
+kube_worker_join_commad: kubeadm version
+
+kube_dashboard_manifest_url: https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard-arm-head.yaml

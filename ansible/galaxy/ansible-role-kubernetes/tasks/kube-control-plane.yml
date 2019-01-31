@@ -43,3 +43,7 @@
 
 - name: Include calico
   include_tasks: calico.yml
+
+- name: Include Kubernetes dashboard
+  include_tasks: kubernetes-dashboard.yml
+  
