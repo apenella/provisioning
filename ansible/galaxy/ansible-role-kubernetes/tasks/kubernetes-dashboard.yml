@@ -19,7 +19,7 @@
   command: "kubectl apply -f {{ dashboard_deployment.path}}/kubernetes-dashboard.yml"
   register: kubernetes_dashboard_apply
 
-- name: Kubernetesdashboard apply output
+- name: Kubernetes dashboard apply output
   debug:
     msg: "{{ kubernetes_dashboard_apply.stdout_lines }}"
 

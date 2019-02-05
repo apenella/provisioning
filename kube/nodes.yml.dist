@@ -4,7 +4,7 @@
   box: ubuntu/bionic64
   vm:
     name: controller01 
-    memory: 1024
+    memory: 1536
     cpus: 2
     #synced_folders:
     #  - src: /home/ODIGEO/aleix.penella/projects

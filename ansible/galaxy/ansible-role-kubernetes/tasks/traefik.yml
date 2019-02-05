@@ -25,4 +25,7 @@
   - traefik-rbac.yml
   - traefik-daemonset.yml
   - traefik-ingress.yml
+  register: traefik_apply
 
+- debug:
+    msg: "{{ traefik_apply | json_query('results[*].stdout') }}"
