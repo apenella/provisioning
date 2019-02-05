@@ -1,0 +1,28 @@
+---
+
+- name: Traefik deployment folder
+  become_user: "{{ ansible_user }}"
+  file:
+    path: $HOME/.kube/traefik
+    state: directory
+  register: traefik_deployment
+
+- name: Copy Traefik deployment configuration
+  template:
+    src: "{{ item }}" 
+    dest: "{{ traefik_deployment.path}}/{{ item | regex_replace('.j2','') }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+  with_items:
+  - traefik-rbac.yml.j2
+  - traefik-daemonset.yml.j2
+  - traefik-ingress.yml.j2
+
+- name: Traefik deployment
+  become_user: "{{ ansible_user }}"
+  command: "kubectl apply -f {{ traefik_deployment.path}}/{{ item }}"
+  with_items:
+  - traefik-rbac.yml
+  - traefik-daemonset.yml
+  - traefik-ingress.yml
+

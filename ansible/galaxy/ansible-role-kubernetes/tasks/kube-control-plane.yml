@@ -41,9 +41,14 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
 
-- name: Include calico
-  include_tasks: calico.yml
+- name: Install Calico
+  import_tasks: calico.yml
+  tags: [calico]
 
-- name: Include Kubernetes dashboard
-  include_tasks: kubernetes-dashboard.yml
+- name: Install Traefik
+  import_tasks: traefik.yml
+  tags: [traefik]
   
+- name: Install Kubernetes dashboard
+  import_tasks: kubernetes-dashboard.yml
+  tags: [dashboard]
