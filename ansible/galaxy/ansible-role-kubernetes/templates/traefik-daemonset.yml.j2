@@ -31,6 +31,9 @@ spec:
         - name: admin
           containerPort: 8080
           hostPort: 8080
+        - name: https
+          containerPort: 443 
+          hostPort: 443 
         securityContext:
           capabilities:
             drop:
@@ -40,7 +43,11 @@ spec:
         args:
         - --api
         - --kubernetes
+        - --insecureskipverify 
         - --logLevel=INFO
+        - --defaultentrypoints=http,https
+        - --entrypoints=Name:https Address::443 TLS
+        - --entrypoints=Name:http Address::80 Redirect.EntryPoint:https 
 ---
 kind: Service
 apiVersion: v1
@@ -57,3 +64,7 @@ spec:
     - protocol: TCP
       port: 8080
       name: admin
+    - protocol: TCP
+      port: 443 
+      name: https
+
