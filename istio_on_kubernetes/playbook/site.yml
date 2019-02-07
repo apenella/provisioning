@@ -1,0 +1,23 @@
+---
+
+- name: workstation
+  become: yes
+  hosts: workstation
+  tasks:
+  - name: debug
+    debug:
+      msg: "Hi! I'm there"
+
+  # - name: Install workstation
+  #   import_role:
+  #     name: ansible-role-istio
+  #     tasks_from: workstation
+
+- name: minishift
+  become: yes
+  hosts: minishift
+  tasks:
+      
+  - name: Install minishift machine
+    import_role:
+      name: ansible-role-istio

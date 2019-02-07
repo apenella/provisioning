@@ -1,0 +1,5 @@
+---
+
+- name: debug
+  debug:
+    msg: "Hi! I'm there"

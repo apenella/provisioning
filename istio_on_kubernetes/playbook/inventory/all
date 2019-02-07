@@ -1,0 +1,12 @@
+[kube-control-plane]
+192.168.50.10
+controller01
+
+[controller01]
+192.168.50.10
+
+[kube-worker]
+node01
+
+[node01]
+192.168.50.20
