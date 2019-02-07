@@ -1,2 +1,14 @@
 ---
 
+istio_dependencies:
+- qemu-kvm
+- libvirt-bin
+- libvirt-daemon
+- libvirt-daemon-system
+
+workstation_tools:
+- git
+- kubectl
+- maven
+- siege
+- virtualbox

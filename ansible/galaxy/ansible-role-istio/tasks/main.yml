@@ -3,3 +3,20 @@
 - name: debug
   debug:
     msg: "Hi! I'm there"
+
+- name: Install Docker
+  import_role:
+    name: geerlingguy.docker
+  tags: [docker]
+
+- name: Install kvm
+  import_tasks: kvm.yml
+  tags: [kvm]
+
+- name: Install minishift
+  import_tasks: minishift.yml
+  tags: [minishift]
+
+- name: Workstation tools
+  import_tasks: tools.yml
+  tags: [tools]

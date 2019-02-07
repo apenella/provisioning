@@ -1,0 +1,62 @@
+---
+
+- name: Check if kvm folder exists
+  become_user: "{{ ansible_user }}"
+  stat:
+    path: $HOME/istio_on_kubernetes
+  register: istio_on_kubernetes_folder
+
+- name: Istio kvm folder
+  become_user: "{{ ansible_user }}"
+  file:
+    path: $HOME/istio_on_kubernetes
+    state: directory
+  when: not istio_on_kubernetes_folder.stat.exists
+
+- name: Check if minishift binary package exists
+  become_user: "{{ ansible_user }}"
+  stat:
+    path: $HOME/istio_on_kubernetes/minishift-1.31.0-linux-amd64.tgz
+  register: minishift_tgz
+
+- name: Download the minishift binary
+  become_user: "{{ ansible_user }}"
+  get_url:
+    url: https://github.com/minishift/minishift/releases/download/v1.31.0/minishift-1.31.0-linux-amd64.tgz
+    dest: $HOME/istio_on_kubernetes/minishift-1.31.0-linux-amd64.tgz
+    validate_certs: false
+    mode: 0755
+  when: not minishift_tgz.stat.exists
+
+- name: Check if kvm folder exists
+  become_user: "{{ ansible_user }}"
+  stat:
+    path: $HOME/istio_on_kubernetes
+  register: minishift_folder
+
+- name: Extract minishift-1.31.0-linux-amd64.tgz into /var/lib/foo
+  become_user: "{{ ansible_user }}"
+  unarchive:
+    src: $HOME/istio_on_kubernetes/minishift-1.31.0-linux-amd64.tgz
+    dest: $HOME/istio_on_kubernetes
+    remote_src: yes
+  when: not minishift_folder.stat.exists
+
+- name: Create symbolic link
+  file:
+    src: "{{ minishift_folder.stat.path }}/minishift-1.31.0-linux-amd64/minishift"
+    dest: /usr/local/bin/minishift
+    state: link
+
+- name: setup minishift
+  become_user: "{{ ansible_user }}"
+  command: "{{ item }}"
+  with_items:
+  -  minishift profile set istio-tutorial
+  -  minishift config set memory 4GB
+  -  minishift config set cpus 2
+  -  minishift config set vm-driver virtualbox ## or kvm, for Fedora
+  -  minishift config set image-caching true
+  -  minishift config set openshift-version v3.11.0
+  -  minishift addon enable admin-user
+  -  minishift addon enable anyuid

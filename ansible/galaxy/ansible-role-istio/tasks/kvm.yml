@@ -1,0 +1,38 @@
+---
+
+- name: Check if kvm folder exists
+  stat:
+    path: $HOME/istio/kvm
+  register: kvm_folder_stat
+
+- name: Istio kvm folder
+  become_user: "{{ ansible_user }}"
+  file:
+    path: $HOME/istio/kvm
+    state: directory
+  register: kvm_folder
+  when: not kvm_folder_stat.stat.exists
+
+- name: Install dependencies
+  apt:
+    name: "{{ istio_dependencies }}"
+    state: present
+
+- name: "Add user {{ ansible_user }} to the libvirt group"
+  user:
+    name: "{{ ansible_user }}"
+    groups: libvirt
+    append: yes
+
+- name: Check if kvm folder exists
+  stat:
+    path: /usr/local/bin/docker-machine-driver-kvm
+  register: kvm_bin
+
+- name: Install the KVM binary
+  get_url:
+    url: https://github.com/dhiltgen/docker-machine-kvm/releases/download/v0.10.0/docker-machine-driver-kvm-ubuntu16.04
+    dest: /usr/local/bin/docker-machine-driver-kvm
+    validate_certs: false
+    mode: 0755
+  when: not kvm_bin.stat.exists
