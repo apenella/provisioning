@@ -2,7 +2,9 @@
 # defaults file for ansible-role-system-base
 
 packages:
+  - curl
   - htop
+  - net-tools
   - network-manager-openvpn
   - network-manager-openvpn-gnome
   - keepassxc
