@@ -3,9 +3,10 @@
 
 packages:
   - atom
+  - aws
   - git
+  - golang
   - jq
   - virtualbox
-  - vagrant 
+  #- vagrant
   - vscode
-

@@ -1,0 +1,11 @@
+---
+# tasks file for ansible-role-gnome
+
+- name: "Task to choose install method for aws package {{ install_aws_pip_package }}"
+  include_tasks: "{{ install_aws_pip_package }}"
+  with_first_found:
+    - files:
+      - install_{{ aws_pip_package_name }}.yml
+      - install_default.yml
+  loop_control:
+    loop_var: install_aws_pip_package

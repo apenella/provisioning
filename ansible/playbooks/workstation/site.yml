@@ -15,6 +15,9 @@
     - name: Gnome packages
       import_role:
         name: ansible-role-gnome
+      tags:
+        - system
+        - gnome
 
     - name: Development packages
       import_role:
@@ -25,4 +28,5 @@
     - name: Entertainment packages
       import_role:
         name: ansible-role-entertainment
-
+      tags:
+        - entertainment
