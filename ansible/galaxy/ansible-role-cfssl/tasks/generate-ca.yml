@@ -1,0 +1,35 @@
+---
+
+- name: Ensure crt folders exists
+  file:
+    path: /kubernetes-the-hard-way/ssl/ca
+    state: directory
+    recurse: yes
+
+- name: Check if ca private key exists
+  stat:
+    path: "/kubernetes-the-hard-way/ssl/ca/ca-key.pem"
+  register: ca_key_result
+
+- block:
+  - name: Create ca config file
+    template:
+      src: ca-config.json.j2
+      dest: /kubernetes-the-hard-way/ssl/ca/ca-config.json
+
+  - name: Create csr config file
+    template:
+      src: ca-csr.json.j2
+      dest: /kubernetes-the-hard-way/ssl/ca/ca-csr.json
+
+  - name: Generate CA
+    shell: "cfssl gencert -initca ca-csr.json | cfssljson -bare ca"
+    args:
+      chdir: /kubernetes-the-hard-way/ssl/ca
+    register: generate_ca_output
+
+  - name: Output generate CA
+    debug:
+      msg: "{{ generate_ca_output.stderr }}"
+
+  when: not ca_key_result.stat.exists |bool

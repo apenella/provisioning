@@ -1,0 +1,40 @@
+---
+
+- name: Setup common system configuration
+  become: yes
+  hosts: all
+  tasks:
+  - name: Update system packages
+    apt:
+      update_cache: yes
+      force_apt_get: yes
+      cache_valid_time: 86400
+
+  - name: Remove swapfile from /etc/fstab
+    mount:
+      name: swap
+      fstype: swap
+      state: absent
+
+  - name: Disable swap
+    command: swapoff -a
+    when: ansible_swaptotal_mb > 0
+
+- name: Install loadbalancer
+  become: yes
+  hosts: lb
+  tasks:
+  - name: Install cfssl and cfssl json
+    import_role:
+      name: ansible-role-cfssl
+      tasks_from: install-cfssl
+
+  - name: Install kubectl
+    import_role:
+      name: ansible-role-thw-kubernetes
+      tasks_from: install-kubectl
+
+  - name: Generate CA
+    import_role:
+      name: ansible-role-cfssl
+      tasks_from: generate-ca

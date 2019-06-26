@@ -1,0 +1,73 @@
+---
+
+- name: controller01 
+  box: ubuntu/bionic64
+  vm:
+    name: controller01 
+    memory: 1536
+    cpus: 2
+    #synced_folders:
+    #  - src: /home/ODIGEO/aleix.penella/projects
+    #    dest: /projects
+  networking:
+  - type: private_network
+    ip: 10.10.1.10
+  provision:
+          #  - type: inline
+          #    script: |
+          #      sudo apt update &&
+          #      sudo apt upgrade -y
+  - type: ansible
+    playbook_path: playbook/site.yml
+    inventory_path: playbook/inventory/kube
+    verbose: v
+    extra_vars:
+      ansible_python_interpreter: '/usr/bin/python3'
+
+- name: node01 
+  box: ubuntu/bionic64
+  vm:
+    name: node01 
+    memory: 1024 
+    cpus: 2
+    #synced_folders:
+    #  - src: /home/ODIGEO/aleix.penella/projects
+    #    dest: /projects
+  networking:
+  - type: private_network
+    ip: 10.10.1.20
+  provision:
+#  - type: inline
+#    script: |
+#      sudo apt update &&
+#      sudo apt upgrade -y
+  - type: ansible
+    playbook_path: playbook/site.yml
+    inventory_path: playbook/inventory/kube
+    verbose: v
+    extra_vars:
+      ansible_python_interpreter: '/usr/bin/python3'
+
+- name: node02
+  box: ubuntu/bionic64
+  vm:
+    name: node02 
+    memory: 1024 
+    cpus: 2
+    #synced_folders:
+    #  - src: /home/ODIGEO/aleix.penella/projects
+    #    dest: /projects
+  networking:
+  - type: private_network
+    ip: 10.10.1.21
+  provision:
+#  - type: inline
+#    script: |
+#      sudo apt update &&
+#      sudo apt upgrade -y
+  - type: ansible
+    playbook_path: playbook/site.yml
+    inventory_path: playbook/inventory/kube
+    verbose: v
+    extra_vars:
+      ansible_python_interpreter: '/usr/bin/python3'

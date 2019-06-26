@@ -1,0 +1,10 @@
+---
+
+cfssl_version: 1.2
+cfssl_os: linux
+cfssl_arch: amd64
+cfssl_download_url: "https://pkg.cfssl.org/R{{ cfssl_version }}/cfssl_{{ cfssl_os }}-{{ cfssl_arch }}"
+cfssljson_download_url: "https://pkg.cfssl.org/R{{ cfssl_version }}/cfssljson_{{ cfssl_os }}-{{ cfssl_arch }}"
+cfssl_bin_base_dir: /usr/local/bin
+cfssl_bin: "{{ cfssl_bin_base_dir }}/cfssl"
+cfssljson_bin: "{{ cfssl_bin_base_dir }}/cfssljson"

@@ -1,0 +1,13 @@
+---
+# defaults file for ansible-role-kubernetes
+
+kube_version: v1.15.0
+kube_arch: amd64
+kube_os: linux
+kube_download_url_base: "https://storage.googleapis.com/kubernetes-release/release/{{ kube_version }}/bin/{{ kube_os }}/{{ kube_arch }}"
+kube_bin_base_dir: /usr/local/bin
+
+kube_kubectl_bin: "{{ kube_bin_base_dir }}/kubectl"
+kube_kubectl_download_url: "{{ kube_download_url_base }}/kubectl"
+
+kube_pod_network_cird: 10.240.0.0/16

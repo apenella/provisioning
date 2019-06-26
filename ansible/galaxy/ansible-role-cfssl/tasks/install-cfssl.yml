@@ -1,0 +1,25 @@
+---
+
+- name: Check that the cfssl exists
+  stat:
+    path: "{{  cfssl_bin }}"
+  register: cfssl_result
+
+- name: Download cfss
+  get_url:
+    url: "{{ cfssl_download_url }}"
+    dest: "{{ cfssl_bin }}"
+    mode: 755
+  when: not cfssl_result.stat.exists |bool
+
+- name: Check that the cfssljson exists
+  stat:
+    path: "{{  cfssljson_bin }}"
+  register: cfssljson_result
+
+- name: Download cfssjson
+  get_url:
+    url: "{{ cfssljson_download_url }}"
+    dest: "{{ cfssljson_bin }}"
+    mode: 755
+  when: not cfssljson_result.stat.exists |bool

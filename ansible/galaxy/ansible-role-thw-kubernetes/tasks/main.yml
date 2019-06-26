@@ -1,0 +1,22 @@
+---
+# tasks file for ansible-role-kubernetes
+
+- name: Update system packages
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: Generate hosts file
+  template:
+    src: hosts.j2
+    dest: /etc/hosts
+
+- name: Remove swapfile from /etc/fstab
+  mount:
+    name: swap
+    fstype: swap
+    state: absent
+
+- name: Disable swap
+  command: swapoff -a
+  when: ansible_swaptotal_mb > 0

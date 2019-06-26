@@ -1,0 +1,13 @@
+---
+
+- name: Check that the kubectl exists
+  stat:
+    path: "{{  kube_kubectl_bin }}"
+  register: kubectl_result
+
+- name: Download kubectl
+  get_url:
+    url: "{{ kube_kubectl_download_url }}"
+    dest: "{{ kube_kubectl_bin }}"
+    mode: 755
+  when: not kubectl_result.stat.exists |bool
