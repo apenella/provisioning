@@ -1,9 +1,15 @@
 ---
 
+- name: Add apt-key for Atom
+  apt_key:
+    url: https://packagecloud.io/AtomEditor/atom/gpgkey
+    state: present
+
 - name: Add PPA for Atom.
   apt_repository:
-    repo: ppa:webupd8team/atom 
+    repo: deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main
     state: present
+    filename: atom
     update_cache: true
 
 - name: Ensure atom is installed.

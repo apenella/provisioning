@@ -8,5 +8,5 @@ packages:
   - golang
   - jq
   - virtualbox
-  #- vagrant
-  - vscode
+  - vagrant
+#  - vscode
