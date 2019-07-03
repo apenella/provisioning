@@ -15,6 +15,9 @@ filetype off                  " required
 call plug#begin('~/.vim/plugged')
   Plug 'kien/ctrlp.vim'
   Plug 'scrooloose/nerdtree'
+  Plug 'patstockwell/vim-monokai-tasty'
+  Plug 'tpope/vim-fugitive'
+  Plug 'vim-airline/vim-airline'
   Plug 'pearofducks/ansible-vim', { 'do': 'cd ./UltiSnips; ./generate.py' }
 
 " Initialize plugin system
@@ -23,7 +26,11 @@ call plug#end()
 " NerdTree Toggle when Ctrl-n
 map <silent> <C-n> :NERDTreeToggle<CR>
 
+syntax enable
 " show numbers based on where you are
-set relativenumber
 set number
+set incsearch
+set hlsearch
+set laststatus=2
+colorscheme molokai
 
