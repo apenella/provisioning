@@ -1,0 +1,12 @@
+---
+
+cfssl_ssl_base_dir: /kubernetes-the-hard-way/ssl
+
+certificates:
+  - name: admin_client
+  - name: kubectl_client
+  - name: controller_manager_client
+  - name: kube_proxy_client
+  - name: scheduler_client
+  - name: kubernetes_api_server
+  - name: service_account_key_pair
