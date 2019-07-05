@@ -4,6 +4,10 @@
   become: yes
   hosts: all
   tasks:
+
+  - name: Include certificates variables
+    include_vars: vars/certificates.yml
+
   - name: Update system packages
     apt:
       update_cache: yes
@@ -38,3 +42,13 @@
     import_role:
       name: ansible-role-cfssl
       tasks_from: generate-ca
+    tags: [ca]
+
+  - name: Generate CA
+    import_role:
+      name: ansible-role-cfssl
+      tasks_from: generate-certificate
+    vars:
+      cfssl_item_name: admin_client
+      cfssl_csr_cn: admin
+    tags: [certificates]

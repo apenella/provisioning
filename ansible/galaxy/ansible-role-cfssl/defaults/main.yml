@@ -8,3 +8,22 @@ cfssljson_download_url: "https://pkg.cfssl.org/R{{ cfssl_version }}/cfssljson_{{
 cfssl_bin_base_dir: /usr/local/bin
 cfssl_bin: "{{ cfssl_bin_base_dir }}/cfssl"
 cfssljson_bin: "{{ cfssl_bin_base_dir }}/cfssljson"
+
+cfssl_ssl_base_dir: /etc/ssl
+cfssl_ssl_ca_dir: "{{ cfssl_ssl_base_dir }}/ca"
+
+cfssl_ca_config_file: "{{ cfssl_ssl_ca_dir }}/ca-config.json"
+cfssl_ca_csr_file: "{{ cfssl_ssl_ca_dir }}/ca-csr.json"
+cfssl_ca_key_pem: "{{ cfssl_ssl_ca_dir }}/ca-key.pem"
+cfssl_ca_cert_pem: "{{ cfssl_ssl_ca_dir }}/ca.pem"
+
+cfssl_csr_cn: kubernetes
+cfssl_csr_key_algo: rsa
+cfssl_csr_key_size: 2048
+cfssl_csr_names_c: CA
+cfssl_csr_names_l: Barcelona
+cfssl_csr_names_o: apenella
+cfssl_csr_names_ou: CA
+cfssl_csr_names_st: Cat
+
+cfssl_cert_profile: kubernetes
