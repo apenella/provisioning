@@ -1,0 +1,37 @@
+---
+
+- name: "Ensure {{ cfssl_ssl_base_dir }}/{{ cfssl_item_name }} folder exists"
+  file:
+    path: "{{ cfssl_ssl_base_dir }}/{{ cfssl_item_name }}"
+    state: directory
+    recurse: yes
+
+- name: "Check if {{ cfssl_item_name }} private key exists"
+  stat:
+    path: "{{ cfssl_ssl_base_dir }}/{{ cfssl_item_name }}/{{ cfssl_item_name }}-key.pem"
+  register: key_result
+
+- block:
+
+  - name: "Create csr config file for {{ cfssl_item_name }}"
+    template:
+      src: csr.json.j2
+      dest: "{{ cfssl_ssl_base_dir }}/{{ cfssl_item_name }}/{{ cfssl_item_name }}-csr.json"
+
+  - name: Generate CA
+    shell: >
+      cfssl gencert -ca={{ cfssl_ca_cert_pem }} 
+      -ca-key={{ cfssl_ca_key_pem }} 
+      -config={{ cfssl_ca_config_file }} 
+      -profile={{ cfssl_cert_profile }} 
+      {{ cfssl_item_name }}-csr.json 
+      | cfssljson -bare {{ cfssl_item_name }}
+    args:
+      chdir: "{{ cfssl_ssl_base_dir }}/{{ cfssl_item_name }}"
+    register: generate_cert_output
+
+  - name: Output generate CA
+    debug:
+      msg: "{{ generate_cert_output.stderr }}"
+
+  when: not key_result.stat.exists |bool
