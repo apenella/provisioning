@@ -3,13 +3,16 @@ set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
-set -g @plugin 'tmux-plugins/tmux-copycat'
+#set -g @plugin 'tmux-plugins/tmux-copycat'
 set -g @plugin 'Morantron/tmux-fingers'
+set -g @plugin 'tmux-plugins/tmux-urlview'
 
 # Create new window with c
 bind c new-window
 # Rename window
 bind , command-prompt "rename-window '%%'"
+
+set -g @continuum-save-interval '30'
 
 # set scape timeout
 set -sg escape-time 5
@@ -78,19 +81,23 @@ set -g status-bg colour234
 set -g status-fg colour137
 set -g status-attr dim
 set -g status-left ''
-set -g status-right '#[fg=colour232,bg=colour241,bold] %d/%m #[fg=colour232,bg=colour245,bold] %H:%M:%S '
+set -g status-right '#[fg=colour81,bold]#(cat /proc/loadavg | cut -d " " -f1-3) #[fg=colour232,bg=colour241,bold] %d/%m/%Y #[fg=colour232,bg=colour245,bold] %H:%M:%S '
 set -g status-right-length 50
 set -g status-left-length 20
 
-setw -g window-status-current-fg colour81
-setw -g window-status-current-bg colour238
+setw -g window-status-current-fg colour238
+setw -g window-status-current-bg colour81
 setw -g window-status-current-attr bold
-setw -g window-status-current-format ' #I#[fg=colour250]:#[fg=colour255]#W#[fg=colour50]#F '
+setw -g window-status-current-format ' #I#[fg=colour250]:#[fg=colour238]#W#[fg=colour250]#F '
 
-setw -g window-status-fg colour138
-setw -g window-status-bg colour235
+#setw -g window-status-fg colour138
+#setw -g window-status-bg colour235
+#setw -g window-status-attr none
+#setw -g window-status-format ' #I#[fg=colour237]:#[fg=colour250]#W#[fg=colour244]#F '
+setw -g window-status-fg colour238
+setw -g window-status-bg colour7
 setw -g window-status-attr none
-setw -g window-status-format ' #I#[fg=colour237]:#[fg=colour250]#W#[fg=colour244]#F '
+setw -g window-status-format ' #I#[fg=colour238]:#[fg=colour238]#W#[fg=colour238]#F '
 
 setw -g window-status-bell-attr bold
 setw -g window-status-bell-fg colour255
