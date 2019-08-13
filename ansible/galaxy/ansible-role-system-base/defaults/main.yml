@@ -9,6 +9,7 @@ packages:
   - network-manager-openvpn-gnome
   - keepassxc
   - parallel
+  - ssh-askpass
   - tlp
   - tmux
   - ubuntu-restricted-extras
